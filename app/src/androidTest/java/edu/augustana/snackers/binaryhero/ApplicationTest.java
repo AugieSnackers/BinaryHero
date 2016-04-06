@@ -1,4 +1,4 @@
-package com.example.nelly.binaryhero;
+package edu.augustana.snackers.binaryhero;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

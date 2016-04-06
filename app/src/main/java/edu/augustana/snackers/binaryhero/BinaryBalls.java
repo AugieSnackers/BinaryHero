@@ -1,4 +1,4 @@
-package com.example.nelly.binaryhero;
+package edu.augustana.snackers.binaryhero;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
