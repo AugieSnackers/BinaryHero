@@ -7,20 +7,21 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 
-public class BinaryBalls {
+public class BinaryBall {
     private final int RADIUS = 50;
     private final int REVERSE = -1;
     private float x;
     private float y;
     private int velX;
     private int velY;
+    private String textBinary;
 
-
-    public BinaryBalls(float posX, float posY) {
+    public BinaryBall(float posX, float posY,String text) {
         x = posX;
         y = posY;
         velX = 0;
         velY = 1;
+        textBinary =text;
     }
 
     public void move(int leftWall, int topWall,
@@ -33,18 +34,8 @@ public class BinaryBalls {
         if (y > bottomWall - RADIUS) {
             y = topWall - RADIUS;
             //velY *= REVERSE;
-        } else if (y < topWall + RADIUS) {
-            y = topWall + RADIUS;
-           // velY *= REVERSE;
         }
 
-        if (x > rightWall - RADIUS) {
-            x = rightWall - RADIUS;
-            velX *= REVERSE;
-        } else if (x < leftWall + RADIUS) {
-            x = leftWall + RADIUS;
-            velX *= REVERSE;
-        }
         //http://stackoverflow.com/questions/22909446/ball-to-ball-collision-resolution
 //        for(int i = 0; i< allBinaryImages.size(); i++) {
 //            if (this != allBinaryImages.get(i)) {
@@ -59,17 +50,25 @@ public class BinaryBalls {
 //        }
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, String text) {
 
         Paint paint = new Paint();
-        paint.setColor(Color.CYAN);
-        canvas.drawCircle(x, y, RADIUS, paint);
         paint.setColor(Color.BLACK);
-        paint.setTextSize(RADIUS);
-        canvas.drawText("000", x-40, y+25,paint);
+        canvas.drawCircle(x, y, RADIUS, paint);
+        paint.setColor(Color.WHITE);
+
+        paint.setTextSize(RADIUS-10);
+        canvas.drawText(text, (x-RADIUS)+5, y+(RADIUS/2)-5,paint);
 
     }
     public float getY(){
         return y;
+    }
+
+    public float getX(){
+        return x;
+    }
+    public String getBinary(){
+        return textBinary;
     }
 }
