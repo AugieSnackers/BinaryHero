@@ -113,9 +113,9 @@ public class PickLevelActivity extends AppCompatActivity {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
                 Bundle extras = new Bundle();
-                extras.putInt("RADIUS",50);
-                extras.putInt("BINARY_LEN", 4);
-                extras.putInt("NUMBER_BALLS", 16);
+                extras.putInt("RADIUS",60);
+                extras.putInt("BINARY_LEN", 5);
+                extras.putInt("NUMBER_BALLS", 32);
                 extras.putInt("THRESHOLD", 5); //HOW MANY TIMES DO THE BALL FALL OUT AND IN THE SCREEN BEFORE WE CALL GAME OVER
                 intent.putExtras(extras);
                 startActivity(intent);

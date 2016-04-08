@@ -1,6 +1,7 @@
 package edu.augustana.snackers.binaryhero;
 
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,7 +11,7 @@ import android.util.DisplayMetrics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
+//TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 /**
  * This class contains the gameArena, balls falling with the right binarystring enclosed
  *
@@ -113,11 +114,14 @@ public class GameArena {
             currentBallToFind = allBinaryImages.get(0).getDecimalValue();
             canvas.drawText("FIND " + currentBallToFind, 100, 600, paint);
         } else {
-            canvas.drawText("GAME OVER!e", 10, 300, paint);
+            canvas.drawText("GAME OVER!", 10, 300, paint);
+
         }
 
 
     }
+
+
 
 
     /**
