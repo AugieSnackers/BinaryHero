@@ -27,6 +27,7 @@ public class BounceThread extends Thread {
                 gameArena.update(canvas.getWidth(),
                         canvas.getHeight());
                 gameArena.draw(canvas);
+                gameArena.drawPlayLabel(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }catch (NullPointerException e){

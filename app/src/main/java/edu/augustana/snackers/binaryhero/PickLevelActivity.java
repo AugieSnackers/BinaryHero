@@ -25,7 +25,7 @@ public class PickLevelActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putInt("RADIUS", 50);
                 extras.putInt("BINARY_LEN", 4);
-                extras.putInt("NUMBER_BALLS", 8);
+                extras.putInt("NUMBER_BALLS", 4);
                 extras.putInt("THRESHOLD", 5); //HOW MANY TIMES DO THE BALL FALL OUT AND IN THE SCREEN BEFORE WE CALL GAME OVER
                 intent.putExtras(extras);
                 startActivity(intent);
@@ -40,7 +40,7 @@ public class PickLevelActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putInt("RADIUS",50);
                 extras.putInt("BINARY_LEN", 4);
-                extras.putInt("NUMBER_BALLS", 16);
+                extras.putInt("NUMBER_BALLS", 8);
                 extras.putInt("THRESHOLD", 5); //HOW MANY TIMES DO THE BALL FALL OUT AND IN THE SCREEN BEFORE WE CALL GAME OVER
                 intent.putExtras(extras);
                 startActivity(intent);
@@ -55,7 +55,7 @@ public class PickLevelActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putInt("RADIUS",50);
                 extras.putInt("BINARY_LEN", 4);
-                extras.putInt("NUMBER_BALLS", 16);
+                extras.putInt("NUMBER_BALLS", 8);
                 extras.putInt("THRESHOLD", 5); //HOW MANY TIMES DO THE BALL FALL OUT AND IN THE SCREEN BEFORE WE CALL GAME OVER
                 intent.putExtras(extras);
                 startActivity(intent);

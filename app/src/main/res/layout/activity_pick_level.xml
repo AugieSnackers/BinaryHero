@@ -65,6 +65,6 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/settings_btn"
-        android:id="@+id/settings_btn_btn"
+        android:id="@+id/settings_btn"
         android:layout_gravity="right|bottom" />
 </FrameLayout>

@@ -15,13 +15,15 @@ public class BinaryBall {
     private int numOfTimeOutOfScreen = 0;
     private int velY;
     private String textBinary;//corresponding binary value
+    private int decimalValue;
 
-    public BinaryBall(float posX, float posY, int rad, String text) {
+    public BinaryBall(float posX, float posY, int rad, String text, int decimalValue) {
         x = posX;
         y = posY;
         radius = rad;
         velY = 1;
         textBinary = text;
+        this.decimalValue = decimalValue;
     }
 
     public void move(int leftWall, int topWall,
@@ -39,13 +41,13 @@ public class BinaryBall {
             }
             //velY *= REVERSE;
         }
-        if (x > rightWall - radius) {
-            x = rightWall - radius;
-
-        } else if (x < leftWall + radius) {
-            x = leftWall + radius;
-
-        }
+//        if (x > rightWall - radius) {
+//            x = rightWall - radius;
+//
+//        } else if (x < leftWall + radius) {
+//            x = leftWall + radius;
+//
+//        }
 
 
     }
@@ -76,5 +78,9 @@ public class BinaryBall {
 
     public String getBinary() {
         return textBinary;
+    }
+
+    public int getDecimalValue() {
+        return decimalValue;
     }
 }

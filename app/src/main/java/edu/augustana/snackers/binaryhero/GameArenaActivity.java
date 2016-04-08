@@ -3,6 +3,7 @@ package edu.augustana.snackers.binaryhero;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,14 +39,16 @@ public class GameArenaActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        Button btn1 = (Button)findViewById(R.id.button2);
-//        frameLayout.addView(btn1);
-//        Button btn2 = (Button)findViewById(R.id.button3);
-//        frameLayout.addView(btn2);
-//        Button btn3 = (Button)findViewById(R.id.button4);
-//        frameLayout.addView(btn3);
     }
-
+    //disbling the back button
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
 

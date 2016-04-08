@@ -3,6 +3,8 @@ package edu.augustana.snackers.binaryhero;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.DisplayMetrics;
 
 import java.util.ArrayList;
@@ -10,17 +12,19 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- * This class cointains the gameArena, balls falling with the right binarystring enclosed
+ * This class contains the gameArena, balls falling with the right binarystring enclosed
  *
  * @Author Nelly Cheboi
  */
 public class GameArena {
     private BinaryBall binaryBall;
-    private int radius;//balls radius
+    private static int radius;//balls radius
     private static int threshold;//how times on/off the screen before calling game over
     private static int binaryLen;//how many binary bits represented inside the ball
     private static int numBalls;//how balls on the screen
+    private static int currentBallToFind = -1;
     static ArrayList<BinaryBall> allBinaryImages = new ArrayList<BinaryBall>();
+    private Random rand;
 
     public GameArena(int rad, int len, int nBalls, int thresh) {
         //INSTANTIATE THE BALL
@@ -31,26 +35,24 @@ public class GameArena {
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         int screenWidth = metrics.widthPixels;
         int screenHeight = metrics.heightPixels;
-        int current = radius * 2;//used in placing the balls on the screen
 
 
-        Random rand = new Random();//needed to randomly place the balls
+        rand = new Random();//needed to randomly place the balls
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
-            int nextX = (current + rand.nextInt(screenWidth)) % (screenWidth - (radius * 2));
-            int nextY = (current + rand.nextInt(screenHeight)) % (screenHeight - (radius * 2));
+            int nextX = (radius*2 + rand.nextInt(screenWidth)) % (screenWidth - (radius*2));
+            int nextY = (radius*2+rand.nextInt(screenHeight)) % (screenHeight - (radius *2));
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
-                //Log.d("BHERO", "x value = " + allBinaryImages.get(i - 1).getX() + " COMPARE x = " + nextX + " x value = " + allBinaryImages.get(i - 1).getY() + " COMPARE Y = " + nextY);
-                nextX = (current + rand.nextInt(screenWidth)) % (screenWidth - (radius * 2));
-                nextY = (current + rand.nextInt(screenHeight)) % (screenHeight - (radius * 2));
-                //Log.d("BHERO", "x value = " + allBinaryImages.get(i-1).getX()+"COMPARE x = " +nextX+"Check rand y" +rand.nextInt(screenHeight));
+                nextX = (radius*2 +rand.nextInt(screenWidth)) % (screenWidth - (radius * 2));
+                nextY = (radius*2+rand.nextInt(screenHeight)) % (screenHeight - (radius * 2));
             }
 
-            binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i));
+
+            binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i);
             allBinaryImages.add(binaryBall);
 
-            current = current + radius * 2;
+
         }
         //shuffle them balls baby
         Collections.shuffle(allBinaryImages);
@@ -90,7 +92,7 @@ public class GameArena {
     }
 
     /**
-     * Draws the balls
+     * Draws the game arena including the balls
      *
      * @param canvas
      */
@@ -104,7 +106,19 @@ public class GameArena {
             //Log.d("BHERO", "x value = " + allBinaryImages.get(i).getX());
 
         }
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setTextSize(radius * 2);
+        if (allBinaryImages.size() > 0) {
+            currentBallToFind = allBinaryImages.get(0).getDecimalValue();
+            canvas.drawText("FIND " + currentBallToFind, 100, 600, paint);
+        } else {
+            canvas.drawText("GAME OVER!e", 10, 300, paint);
+        }
+
+
     }
+
 
     /**
      * Removes the ball from the arraylist once touched
@@ -114,12 +128,16 @@ public class GameArena {
      */
     public static void findBall(float x, float y) {
         for (int i = 0; i < allBinaryImages.size(); i++) {
-            if (Math.abs(allBinaryImages.get(i).getY() - y) <= 10 && Math.abs(allBinaryImages.get(i).getX() - x) <= 10) {
-                allBinaryImages.remove(i);
+            if (Math.abs(allBinaryImages.get(i).getY() - y) <= radius && Math.abs(allBinaryImages.get(i).getX() - x) <= radius) {
+                if (allBinaryImages.get(i).getDecimalValue() == currentBallToFind) {
+                    removeBall(allBinaryImages.get(i));
+                }
+
+
             }
         }
-
     }
+
 
     /**
      * removes the ball from the arraylist
@@ -152,5 +170,9 @@ public class GameArena {
 
 
         return false;
+    }
+
+    public void drawPlayLabel(Canvas canvas) {
+
     }
 }
