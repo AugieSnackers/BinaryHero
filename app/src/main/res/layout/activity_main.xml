@@ -2,26 +2,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frameLayout2">
+    android:id="@+id/frameLayout2"
+    android:background="#b3afaf">
 
     <Button
         android:layout_width="201dp"
         android:layout_height="125dp"
-        android:id="@+id/button13"
+        android:id="@+id/start_btn"
         android:layout_gravity="center_horizontal|top"
         android:background="@drawable/start_btn" />
 
     <Button
         android:layout_width="201dp"
         android:layout_height="125dp"
-        android:id="@+id/button14"
+        android:id="@+id/settings_btn"
         android:layout_gravity="center"
         android:background="@drawable/settings_btn" />
 
     <Button
         android:layout_width="201dp"
         android:layout_height="125dp"
-        android:id="@+id/button15"
+        android:id="@+id/help_btn"
         android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/help_btn" />
 </FrameLayout>

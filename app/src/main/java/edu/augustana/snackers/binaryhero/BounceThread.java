@@ -3,25 +3,30 @@ package edu.augustana.snackers.binaryhero;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
+/**
+ * copied from textbook needs commenting
+ */
 public class BounceThread extends Thread {
 
     private SurfaceHolder surfaceHolder;
-    private AnimationArena animationArena;
+    private GameArena gameArena;
     private boolean isRunning;
 
-    public BounceThread (SurfaceHolder sh){
+    public BounceThread (SurfaceHolder sh,GameArena gameArena){
+
         isRunning = true;
         surfaceHolder = sh;
-        animationArena = new AnimationArena();
+        this.gameArena = gameArena;
     }
 
     public void run() {
         try {
             while (isRunning) {
                 Canvas canvas = surfaceHolder.lockCanvas();
-                animationArena.update(canvas.getWidth(),
+
+                gameArena.update(canvas.getWidth(),
                         canvas.getHeight());
-                animationArena.draw(canvas);
+                gameArena.draw(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }catch (NullPointerException e){

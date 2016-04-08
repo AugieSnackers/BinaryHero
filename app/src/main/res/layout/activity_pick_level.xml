@@ -2,12 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frameLayout2">
+    android:id="@+id/frameLayout2"
+    android:background="#b3afaf">
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/button4"
+        android:id="@+id/btn000"
         android:layout_gravity="left|top"
         android:background="@drawable/btn000" />
 
@@ -15,41 +16,41 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/btn100"
-        android:id="@+id/button5"
+        android:id="@+id/btn100"
         android:layout_gravity="left|center_vertical" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/btn111"
-        android:id="@+id/button6"
+        android:id="@+id/btn111"
         android:layout_gravity="left|bottom" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/btn001"
-        android:id="@+id/button7"
+        android:id="@+id/btn001"
         android:layout_gravity="center_horizontal|top" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/btn101"
-        android:id="@+id/button8"
+        android:id="@+id/btn101"
         android:layout_gravity="center" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/help_btn"
-        android:id="@+id/button9"
+        android:id="@+id/helpbtn"
         android:layout_gravity="center_horizontal|bottom" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/button10"
+        android:id="@+id/btn011"
         android:layout_gravity="right|top"
         android:background="@drawable/btn011" />
 
@@ -57,13 +58,13 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/btn110"
-        android:id="@+id/button11"
+        android:id="@+id/btn110"
         android:layout_gravity="right|center_vertical" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/settings_btn"
-        android:id="@+id/button12"
+        android:id="@+id/settings_btn_btn"
         android:layout_gravity="right|bottom" />
 </FrameLayout>
