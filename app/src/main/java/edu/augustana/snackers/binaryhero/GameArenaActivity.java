@@ -1,8 +1,8 @@
 package edu.augustana.snackers.binaryhero;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +23,7 @@ public class GameArenaActivity extends AppCompatActivity {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        GameArena gameArena = new GameArena(extras.getInt("RADIUS"),extras.getInt("BINARY_LEN"),extras.getInt("NUMBER_BALLS"),extras.getInt("THRESHOLD"));
+        GameArena gameArena = new GameArena(extras.getInt("RADIUS"), extras.getInt("BINARY_LEN"), extras.getInt("NUMBER_BALLS"), extras.getInt("THRESHOLD"));
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 
@@ -40,12 +40,13 @@ public class GameArenaActivity extends AppCompatActivity {
             }
         });
     }
+
     //disbling the back button
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
-            return true;
+            super.onDestroy();
+            return false;
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -1,9 +1,8 @@
-
 package edu.augustana.snackers.binaryhero;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,7 +16,7 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button startBtn =(Button) findViewById(R.id.start_btn);
+        Button startBtn = (Button) findViewById(R.id.start_btn);
         startBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), PickLevelActivity.class);
@@ -25,14 +24,14 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
 
-        Button helpBtn =(Button) findViewById(R.id.help_btn);
+        Button helpBtn = (Button) findViewById(R.id.help_btn);
         helpBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
                 startActivity(intent);
             }
         });
-        Button settingBtn =(Button) findViewById(R.id.settings_btn);
+        Button settingBtn = (Button) findViewById(R.id.settings_btn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -40,7 +39,6 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

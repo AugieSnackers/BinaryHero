@@ -76,6 +76,10 @@ public class BinaryBall {
         return x;
     }
 
+    public int getNumOfTimesOfScreen() {
+        return numOfTimeOutOfScreen;
+    }
+
     public String getBinary() {
         return textBinary;
     }

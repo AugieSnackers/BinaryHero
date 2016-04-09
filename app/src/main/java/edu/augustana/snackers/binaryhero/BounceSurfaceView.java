@@ -14,24 +14,26 @@ public class BounceSurfaceView extends SurfaceView implements
 
     private BounceThread bounceThread;
 
-    public BounceSurfaceView (Context context,GameArena gameArena, AttributeSet attrs){
-        super (context, attrs);
+    public BounceSurfaceView(Context context, GameArena gameArena, AttributeSet attrs) {
+        super(context, attrs);
 
         SurfaceHolder holder = getHolder();
         holder.addCallback(this);
 
         //CREATE A NEW THREAD
-        bounceThread = new BounceThread (holder, gameArena);
+        bounceThread = new BounceThread(holder, gameArena);
     }
 
     //IMPLEMENT THE INHERITED ABSTRACT METHODS
-    public void surfaceChanged (SurfaceHolder holder, int format,
-                                int width, int height) {}
-    public void surfaceCreated (SurfaceHolder holder) {
+    public void surfaceChanged(SurfaceHolder holder, int format,
+                               int width, int height) {
+    }
+
+    public void surfaceCreated(SurfaceHolder holder) {
         bounceThread.start();
     }
 
-    public void surfaceDestroyed (SurfaceHolder holder) {
+    public void surfaceDestroyed(SurfaceHolder holder) {
         bounceThread.endBounce();
         Thread dummyThread = bounceThread;
         bounceThread = null;
