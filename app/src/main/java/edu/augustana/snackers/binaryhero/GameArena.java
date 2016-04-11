@@ -24,6 +24,7 @@ public class GameArena {
     private static int binaryLen;//how many binary bits represented inside the ball
     private static int numBalls;//how balls on the screen
     private static BinaryBall currentBallToFind = null;
+    static int numOfTimesOfScreen = 0;
     private BinaryBall binaryBall;
     private Random rand;
 
@@ -81,6 +82,7 @@ public class GameArena {
         for (int i = 0; i < allBinaryImages.size(); i++) {
             if (Math.abs(allBinaryImages.get(i).getY() - y) <= radius && Math.abs(allBinaryImages.get(i).getX() - x) <= radius) {
                 if (allBinaryImages.get(i).getDecimalValue() == currentBallToFind.getDecimalValue()) {
+                    numOfTimesOfScreen= numOfTimesOfScreen-allBinaryImages.get(i).getNumOfTimesOfScreen();
                     removeBall(allBinaryImages.get(i));
                 }
 
@@ -158,7 +160,7 @@ public class GameArena {
     public void draw(Canvas canvas) {
         //WIPE THE CANVAS CLEAN
         canvas.drawRGB(176, 175, 175);
-        int numOfTimesOfScreen = 0;
+
         int prev;
         for (int i = 0; i < allBinaryImages.size(); i++) {
             //DRAW THE BALL
@@ -174,7 +176,7 @@ public class GameArena {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(radius * 2);
-        if (allBinaryImages.size() > 0&&numOfTimesOfScreen < threshold) {
+        if (allBinaryImages.size() > 0&&numOfTimesOfScreen < (threshold-1)*allBinaryImages.size()) {
             currentBallToFind = allBinaryImages.get(0);
             canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
         } else {

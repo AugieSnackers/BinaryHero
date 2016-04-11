@@ -36,6 +36,7 @@ public class BinaryBall {
         if (y > bottomWall) {
             y = topWall;
             numOfTimeOutOfScreen++;
+            GameArena.numOfTimesOfScreen++;
             if (numOfTimeOutOfScreen >= GameArena.getThreshold()) {
                 GameArena.removeBall(this);
             }
