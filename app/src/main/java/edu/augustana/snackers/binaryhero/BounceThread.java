@@ -12,7 +12,7 @@ public class BounceThread extends Thread {
     private GameArena gameArena;
     private boolean isRunning;
 
-    public BounceThread (SurfaceHolder sh,GameArena gameArena){
+    public BounceThread(SurfaceHolder sh, GameArena gameArena) {
 
         isRunning = true;
         surfaceHolder = sh;
@@ -30,7 +30,7 @@ public class BounceThread extends Thread {
                 gameArena.drawPlayLabel(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }

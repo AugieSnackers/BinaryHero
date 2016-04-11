@@ -3,6 +3,7 @@ package edu.augustana.snackers.binaryhero;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,14 +12,10 @@ import com.com.example.nelly.binaryhero.R;
 
 
 public class GameArenaActivity extends AppCompatActivity {
-    static final String PLAYER_LEVEL = "playerLevel";
-    static int mPlayerLevel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_game_arena);
 
 
@@ -44,16 +41,15 @@ public class GameArenaActivity extends AppCompatActivity {
         });
     }
 
-//    //disabling the back button
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-
+    //disbling the back button
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            super.onDestroy();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
 

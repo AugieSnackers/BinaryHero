@@ -14,7 +14,6 @@ public class BounceSurfaceView extends SurfaceView implements
 
     private BounceThread bounceThread;
 
-
     public BounceSurfaceView(Context context, GameArena gameArena, AttributeSet attrs) {
         super(context, attrs);
 
@@ -28,7 +27,6 @@ public class BounceSurfaceView extends SurfaceView implements
     //IMPLEMENT THE INHERITED ABSTRACT METHODS
     public void surfaceChanged(SurfaceHolder holder, int format,
                                int width, int height) {
-
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
@@ -42,5 +40,3 @@ public class BounceSurfaceView extends SurfaceView implements
         dummyThread.interrupt();
     }
 }
-
-
