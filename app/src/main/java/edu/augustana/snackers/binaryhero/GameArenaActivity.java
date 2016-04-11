@@ -41,6 +41,15 @@ public class GameArenaActivity extends AppCompatActivity {
         });
     }
 
+    //disabling the back button
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //super.onDestroy();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
 
