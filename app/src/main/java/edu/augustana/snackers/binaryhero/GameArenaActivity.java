@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import com.com.example.nelly.binaryhero.R;
 
 
@@ -42,14 +45,14 @@ public class GameArenaActivity extends AppCompatActivity {
     }
 
     //disabling the back button
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //super.onDestroy();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//@Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            GameArena.clearHistory();
+//            onBackPressed();
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
 }
 

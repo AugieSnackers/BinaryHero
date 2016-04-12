@@ -18,13 +18,14 @@ import java.util.Random;
  * @Author Nelly Cheboi
  */
 public class GameArena {
-    static ArrayList<BinaryBall> allBinaryImages = new ArrayList<BinaryBall>();
+    static ArrayList<BinaryBall> allBinaryImages;
     private static int radius;//balls radius
     private static int threshold;//how times on/off the screen before calling game over
-    private static int binaryLen;//how many binary bits represented inside the ball
-    private static int numBalls;//how balls on the screen
+    private int binaryLen;//how many binary bits represented inside the ball
+    private int numBalls;//how balls on the screen
     private static BinaryBall currentBallToFind = null;
-    static int numOfTimesOfScreen = 0;
+    static int numOfTimesOfScreen;
+    static int mPlayerLevel;
     private BinaryBall binaryBall;
     private Random rand;
 
@@ -34,11 +35,13 @@ public class GameArena {
         threshold = thresh;
         binaryLen = len;
         numBalls = nBalls;
+        numOfTimesOfScreen = 0;
+        //this.mPlayerLevel =mPlayerLevel;
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         int screenWidth = metrics.widthPixels;
         int screenHeight = metrics.heightPixels;
 
-
+        allBinaryImages = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
@@ -68,7 +71,7 @@ public class GameArena {
     }
 
     //returns the threshold, how many times on/off the screen before calling game over
-    public static float getThreshold() {
+    public static int getThreshold() {
         return threshold;
     }
 
@@ -82,7 +85,7 @@ public class GameArena {
         for (int i = 0; i < allBinaryImages.size(); i++) {
             if (Math.abs(allBinaryImages.get(i).getY() - y) <= radius && Math.abs(allBinaryImages.get(i).getX() - x) <= radius) {
                 if (allBinaryImages.get(i).getDecimalValue() == currentBallToFind.getDecimalValue()) {
-                    numOfTimesOfScreen= numOfTimesOfScreen-allBinaryImages.get(i).getNumOfTimesOfScreen();
+                    numOfTimesOfScreen = numOfTimesOfScreen - allBinaryImages.get(i).getNumOfTimesOfScreen();
                     removeBall(allBinaryImages.get(i));
                 }
 
@@ -93,6 +96,7 @@ public class GameArena {
 
     /**
      * removes the ball from the arraylist
+     *
      *
      * @param ball
      */
@@ -108,7 +112,7 @@ public class GameArena {
      * @param nextY
      * @return
      */
-    public static boolean checkForOverStacking(int nextX, int nextY) {
+    public boolean checkForOverStacking(int nextX, int nextY) {
 
         for (int i = 0; i < allBinaryImages.size(); i++) {
 
@@ -176,12 +180,17 @@ public class GameArena {
         Paint paint = new Paint();
         paint.setColor(Color.RED);
         paint.setTextSize(radius * 2);
-        if (allBinaryImages.size() > 0&&numOfTimesOfScreen < (threshold-1)*allBinaryImages.size()) {
-            currentBallToFind = allBinaryImages.get(0);
-            canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
-        } else {
-            canvas.drawText("GAME OVER!", 10, 300, paint);
+        if(allBinaryImages.size() > 0 ) {
+            if (numOfTimesOfScreen < (threshold - 1) * allBinaryImages.size()) {
+                currentBallToFind = allBinaryImages.get(0);
+                canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
+            } else {
+                canvas.drawText("GAME OVER!", 10, 300, paint);
+
+            }
+        }else{
             //TODO GAME OVER DO SOMETHING
+
         }
 
     }
@@ -189,4 +198,6 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+
+
 }
