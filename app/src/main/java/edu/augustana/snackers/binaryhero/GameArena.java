@@ -1,6 +1,7 @@
 package edu.augustana.snackers.binaryhero;
 
 
+import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,45 +30,10 @@ public class GameArena {
     private BinaryBall binaryBall;
     private Random rand;
 
-    public GameArena(int rad, int len, int nBalls, int thresh) {
-        //INSTANTIATE THE BALL
-        radius = rad;
-        threshold = thresh;
-        binaryLen = len;
-        numBalls = nBalls;
-        numOfTimesOfScreen = 0;
-        //this.mPlayerLevel =mPlayerLevel;
-        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-        int screenWidth = metrics.widthPixels;
-        int screenHeight = metrics.heightPixels;
+    public GameArena(int level) {
+        mPlayerLevel=level;
+        nextLevel(level);
 
-        allBinaryImages = new ArrayList<BinaryBall>();
-        rand = new Random();//needed to randomly place the balls
-        //for loop to create the given number of balls
-        for (int i = 0; i < numBalls; i++) {
-            int nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
-            int nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
-
-            if (nextX < radius) {
-                nextX = nextX + radius;
-            }
-            //checks if the given position is already taking, avoids balls stacking on top of each other
-            while (checkForOverStacking(nextX, nextY) && i > 0) {
-                nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
-                nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
-                if (nextX < radius) {
-                    nextX = nextX + radius;
-                }
-            }
-
-
-            binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i);
-            allBinaryImages.add(binaryBall);
-
-
-        }
-        //shuffle them balls baby
-        Collections.shuffle(allBinaryImages);
     }
 
     //returns the threshold, how many times on/off the screen before calling game over
@@ -164,6 +130,11 @@ public class GameArena {
     public void draw(Canvas canvas) {
         //WIPE THE CANVAS CLEAN
         canvas.drawRGB(176, 175, 175);
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+
+        if(allBinaryImages.size() > 0 ) {
+
 
         int prev;
         for (int i = 0; i < allBinaryImages.size(); i++) {
@@ -177,10 +148,8 @@ public class GameArena {
             //Log.d("BHERO", "x value = " + allBinaryImages.get(i).getX());
 
         }
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        paint.setTextSize(radius * 2);
-        if(allBinaryImages.size() > 0 ) {
+
+            paint.setTextSize(radius * 2);
             if (numOfTimesOfScreen < (threshold - 1) * allBinaryImages.size()) {
                 currentBallToFind = allBinaryImages.get(0);
                 canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
@@ -189,8 +158,15 @@ public class GameArena {
 
             }
         }else{
-            //TODO GAME OVER DO SOMETHING
-
+            paint.setTextSize(radius);
+            //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
+            //TODO add pop up button on options of the game
+            //NEXT LEVEL
+            if(mPlayerLevel<5) {
+                nextLevel(++mPlayerLevel);
+            }else{
+                canvas.drawText("YOU FINISH GAME", 20, 300, paint);
+            }
         }
 
     }
@@ -198,6 +174,44 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+    public void nextLevel(int level){
+    radius = LevelsDatabase.radius[level];
+    threshold = LevelsDatabase.threshhold[level];;
+    binaryLen = LevelsDatabase.binaryLen[level];;
+    numBalls = LevelsDatabase.numBalls[level];;
+    numOfTimesOfScreen = 0;
+    //this.mPlayerLevel =mPlayerLevel;
+    DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+    int screenWidth = metrics.widthPixels;
+    int screenHeight = metrics.heightPixels;
 
+    allBinaryImages = new ArrayList<BinaryBall>();
+    rand = new Random();//needed to randomly place the balls
+    //for loop to create the given number of balls
+    for (int i = 0; i < numBalls; i++) {
+        int nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
+        int nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
+
+        if (nextX < radius) {
+            nextX = nextX + radius;
+        }
+        //checks if the given position is already taking, avoids balls stacking on top of each other
+        while (checkForOverStacking(nextX, nextY) && i > 0) {
+            nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
+            nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
+            if (nextX < radius) {
+                nextX = nextX + radius;
+            }
+        }
+
+
+        binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i);
+        allBinaryImages.add(binaryBall);
+
+
+    }
+    //shuffle them balls baby
+    Collections.shuffle(allBinaryImages);
+}
 
 }

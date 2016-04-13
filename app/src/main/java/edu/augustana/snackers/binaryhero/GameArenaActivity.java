@@ -24,9 +24,7 @@ public class GameArenaActivity extends AppCompatActivity {
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        GameArena gameArena = new GameArena(extras.getInt("RADIUS"), extras.getInt("BINARY_LEN"), extras.getInt("NUMBER_BALLS"), extras.getInt("THRESHOLD"));
+        GameArena gameArena = new GameArena(getIntent().getIntExtra("PLAYER_lEVEL", 0));
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 
