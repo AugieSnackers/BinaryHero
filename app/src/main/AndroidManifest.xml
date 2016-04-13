@@ -16,14 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.augustana.snackers.binaryhero.PickLevelActivity" />
         <activity android:name="edu.augustana.snackers.binaryhero.GameArenaActivity"
             android:screenOrientation="portrait"
 
             />
-        <activity android:name="edu.augustana.snackers.binaryhero.HelpActivity" />
         <activity android:name="edu.augustana.snackers.binaryhero.SettingsActivity" />
-        <activity android:name="edu.augustana.snackers.binaryhero.NextLevelActivity"></activity>
     </application>
 
 </manifest>

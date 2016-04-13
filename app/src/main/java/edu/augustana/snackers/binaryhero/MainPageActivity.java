@@ -19,18 +19,13 @@ public class MainPageActivity extends AppCompatActivity {
         Button startBtn = (Button) findViewById(R.id.start_btn);
         startBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
-                Intent intent = new Intent(getApplicationContext(), PickLevelActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
+                intent.putExtra("PLAYER_LEVEL",0);
                 startActivity(intent);
             }
         });
 
-        Button helpBtn = (Button) findViewById(R.id.help_btn);
-        helpBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View btn) {
-                Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
-                startActivity(intent);
-            }
-        });
+
         Button settingBtn = (Button) findViewById(R.id.settings_btn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {

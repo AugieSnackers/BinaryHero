@@ -140,6 +140,7 @@ public class GameArena {
         for (int i = 0; i < allBinaryImages.size(); i++) {
             //DRAW THE BALL
             allBinaryImages.get(i).draw(canvas, allBinaryImages.get(i).getBinary());
+
             prev = numOfTimesOfScreen;
             numOfTimesOfScreen = allBinaryImages.get(i).getNumOfTimesOfScreen();
             if (numOfTimesOfScreen < prev) {
@@ -150,12 +151,14 @@ public class GameArena {
         }
 
             paint.setTextSize(radius * 2);
-            if (numOfTimesOfScreen < (threshold - 1) * allBinaryImages.size()) {
+            //TODO fix bug
+            if (numOfTimesOfScreen <(threshold - 1) * allBinaryImages.size()) {
                 currentBallToFind = allBinaryImages.get(0);
+                canvas.drawText(""+mPlayerLevel, 10, 100, paint);
                 canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
             } else {
                 canvas.drawText("GAME OVER!", 10, 300, paint);
-
+                mPlayerLevel=-1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         }else{
             paint.setTextSize(radius);
@@ -165,7 +168,7 @@ public class GameArena {
             if(mPlayerLevel<5) {
                 nextLevel(++mPlayerLevel);
             }else{
-                canvas.drawText("YOU FINISH GAME", 20, 300, paint);
+                canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }
 

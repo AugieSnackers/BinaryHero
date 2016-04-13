@@ -10,19 +10,20 @@
         android:layout_width="201dp"
         android:layout_height="125dp"
         android:layout_gravity="center_horizontal|top"
-        android:background="@drawable/start_btn" />
+        android:text="START"
+        android:textColor="#fefdfd"
+        android:backgroundTint="#010101"
+        android:textSize="48dp" />
 
     <Button
         android:id="@+id/settings_btn"
         android:layout_width="201dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:background="@drawable/settings_btn" />
+        android:textColor="#fdfbfb"
+        android:text="HELP"
+        android:backgroundTint="#010101"
+        android:textSize="48dp" />
 
-    <Button
-        android:id="@+id/help_btn"
-        android:layout_width="201dp"
-        android:layout_height="125dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="@drawable/help_btn" />
+
 </FrameLayout>
