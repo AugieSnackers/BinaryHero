@@ -24,7 +24,9 @@ public class GameArenaActivity extends AppCompatActivity {
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
-        GameArena gameArena = new GameArena(getIntent().getIntExtra("PLAYER_lEVEL", 0));
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        final GameArena gameArena = new GameArena(extras.getInt("PLAYER_lEVEL", 0), extras.getBoolean("GAME_MODE",true),this);
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 
@@ -36,7 +38,7 @@ public class GameArenaActivity extends AppCompatActivity {
                 float x = event.getX();
                 float y = event.getY();
 
-                GameArena.findBall(x, y);
+                gameArena.findBall(x, y);
                 return false;
             }
         });
