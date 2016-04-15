@@ -17,5 +17,9 @@ public static int radius[] = { 50,50,50,50,60,60,60};
     public static DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
     public static int screenWidth = metrics.widthPixels;
     public static int screenHeight = metrics.heightPixels;
+
+
+
+    public static int passwords[] = {1234,1235,1236};
     }
 
