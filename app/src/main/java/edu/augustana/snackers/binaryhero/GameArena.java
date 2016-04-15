@@ -6,11 +6,17 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.widget.Chronometer;
+import android.widget.TextView;
+
+import com.com.example.nelly.binaryhero.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.TimerTask;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -19,29 +25,41 @@ import java.util.Random;
  * @Author Nelly Cheboi
  */
 public class GameArena {
- ArrayList<BinaryBall> allBinaryBalls;
+    ArrayList<BinaryBall> allBinaryBalls;
 
-    private  int threshold;//how times on/off the its rn before calling game over
-    private int binaryLen;//how many binary bBallsepresented inside the ball
+    //Timer related variables
+
+
+
+    private int threshold;//how times on/off the its rn before calling game over
+    private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
-    private  BinaryBall currentBallToFind= null;
+    private BinaryBall currentBallToFind = null;
     boolean gameIsOver;
     private int mPlayerLevel;
     private Activity activity;
     private boolean isBinary;
 
 
-
-    public GameArena(int level,boolean isBinary,Activity activity) {
+    public GameArena(int level, boolean isBinary, Activity activity) {
         mPlayerLevel = level;
-        this.activity=activity;
-        this.isBinary=isBinary;
+        this.activity = activity;
+        this.isBinary = isBinary;
         nextLevel(level);
 
     }
+
+
+
+
+
+
+
+
+
     public void nextLevel(int level) {
         Random rand;
-        gameIsOver=false;
+        gameIsOver = false;
         int radius = LevelsDatabase.radius[level];
         threshold = LevelsDatabase.threshhold[level];
 
@@ -50,31 +68,29 @@ public class GameArena {
 
 
         //this.mPlayerLevel =mPlayerLevel;
-        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-        int screenWidth = metrics.widthPixels;
-        int screenHeight = metrics.heightPixels;
+
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
-            int nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
-            int nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
+            int nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
+            int nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
 
             if (nextX < radius) {
                 nextX = nextX + radius;
             }
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
-                nextX = (rand.nextInt(screenWidth)) % (screenWidth - (radius));
-                nextY = (rand.nextInt(screenHeight)) % (screenHeight - (radius));
+                nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
+                nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
             }
 
 
-            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i,this);
+            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, this);
             allBinaryBalls.add(binaryBall);
 
 
@@ -85,7 +101,7 @@ public class GameArena {
 
 
     //returns the threshold, how many times on/off the screen before calling game over
-    public  int getThreshold() {
+    public int getThreshold() {
         return threshold;
     }
 
@@ -95,10 +111,10 @@ public class GameArena {
      * @param x
      * @param y
      */
-    public  void findBall(float x, float y) {
+    public void findBall(float x, float y) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
-                BinaryBall binaryBall =   allBinaryBalls.get(i)  ;
-            if ((binaryBall.getY() - y)*(binaryBall.getY() - y) +(binaryBall.getX() - x)*(binaryBall.getY() - y) <= (binaryBall.getRadius()*binaryBall.getRadius())) {
+            BinaryBall binaryBall = allBinaryBalls.get(i);
+            if ((binaryBall.getY() - y) * (binaryBall.getY() - y) + (binaryBall.getX() - x) * (binaryBall.getY() - y) <= (binaryBall.getRadius() * binaryBall.getRadius())) {
                 if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                     removeBall(allBinaryBalls.get(i));
                 }
@@ -113,7 +129,7 @@ public class GameArena {
      *
      * @param ball
      */
-    public  void removeBall(BinaryBall ball) {
+    public void removeBall(BinaryBall ball) {
         allBinaryBalls.remove(ball);
         Collections.shuffle(allBinaryBalls);
     }
@@ -187,11 +203,11 @@ public class GameArena {
             for (int i = 0; i < allBinaryBalls.size(); i++) {
 
                 //DRAW THE BALL
-                if(isBinary){
-                    allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getBinary(),isBinary);
+                if (isBinary) {
+                    allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getBinary(), isBinary);
 
-                }else{
-                    allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getDecimalText(),isBinary);
+                } else {
+                    allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getDecimalText(), isBinary);
                 }
 
 
@@ -199,14 +215,14 @@ public class GameArena {
 
             }
 
-            paint.setTextSize(50* 2);
+            paint.setTextSize(50 * 2);
 
             if (!gameIsOver) {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
-                if(isBinary){
+                if (isBinary) {
                     canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
-                }else{
+                } else {
                     canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
                 }
 
@@ -216,12 +232,14 @@ public class GameArena {
             }
         } else {
             paint.setTextSize(50);
+
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
                 nextLevel(++mPlayerLevel);
             } else {
+
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }
@@ -231,6 +249,7 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+
 
 
 }

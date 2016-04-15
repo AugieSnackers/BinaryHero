@@ -1,6 +1,8 @@
 package edu.augustana.snackers.binaryhero;
 
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 
 /**
  * Created by Nelly on 4/11/2016.
@@ -12,5 +14,8 @@ public static int radius[] = { 50,50,50,50,60,60,60};
     public static int threshhold[] = { 2,2,4,4,6,6,6};
     public static int color[] ={Color.BLACK,Color.RED};
     public static int textColor = Color.CYAN;
+    public static DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+    public static int screenWidth = metrics.widthPixels;
+    public static int screenHeight = metrics.heightPixels;
     }
 
