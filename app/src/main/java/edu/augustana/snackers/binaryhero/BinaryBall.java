@@ -24,7 +24,7 @@ public class BinaryBall {
         x = posX;
         y = posY;
         radius = rad;
-        velY = 1;
+        velY = LevelsDatabase.screenHeight/300;
         textBinary = text;
         this.decimalValue = decimalValue;
         this.gameArena = gameArena;
