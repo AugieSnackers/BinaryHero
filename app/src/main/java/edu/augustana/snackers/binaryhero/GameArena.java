@@ -49,14 +49,6 @@ public class GameArena {
 
     }
 
-
-
-
-
-
-
-
-
     public void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
@@ -112,18 +104,24 @@ public class GameArena {
      * @param y
      */
     public void findBall(float x, float y) {
-        for (int i = 0; i < allBinaryBalls.size(); i++) {
-            BinaryBall binaryBall = allBinaryBalls.get(i);
-            if ((binaryBall.getY() - y) * (binaryBall.getY() - y) + (binaryBall.getX() - x) * (binaryBall.getY() - y) <= (binaryBall.getRadius() * binaryBall.getRadius())) {
-                if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
-                    removeBall(allBinaryBalls.get(i));
+        try {
+            for (int i = 0; i < allBinaryBalls.size(); i++) {
+                BinaryBall binaryBall = allBinaryBalls.get(i);
+                float xDiff = x - allBinaryBalls.get(i).getX();
+                float yDiff = y - allBinaryBalls.get(i).getY();
+                float diameter = allBinaryBalls.get(i).getRadius() * 2;
+                if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
+                    if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
+                        removeBall(allBinaryBalls.get(i));
+                    }
+
+
                 }
-
-
             }
+        } catch(NullPointerException e) {
+
         }
     }
-
     /**
      * removes the ball from the arraylist
      *
@@ -227,6 +225,7 @@ public class GameArena {
                 }
 
             } else {
+                currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }

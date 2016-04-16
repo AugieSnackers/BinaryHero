@@ -25,8 +25,9 @@ public class BinaryBall {
         x = posX;
         y = posY;
         radius = rad;
-        velY = LevelsDatabase.screenHeight/500;
+        velY = 1;//LevelsDatabase.screenHeight/600;
         Log.d("velY", " " + velY);
+        Log.d("velY", " " + LevelsDatabase.screenHeight);
         textBinary = text;
         this.decimalValue = decimalValue;
         this.gameArena = gameArena;
@@ -76,7 +77,7 @@ public class BinaryBall {
         } else {
             paint.setTextSize((radius * 3) / 2);
         }
-        canvas.drawText(text, (x - radius)+5 , y+(radius / 2)+5 , paint);
+        canvas.drawText(text, (x - radius)+5 , y+(radius / 2)-5 , paint);
 
     }
 
