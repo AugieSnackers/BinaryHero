@@ -25,7 +25,14 @@ public class BinaryBall {
         x = posX;
         y = posY;
         radius = rad;
-        velY = 1;//LevelsDatabase.screenHeight/600;
+        if(LevelsDatabase.screenHeight<1000){
+            velY = 1;
+            radius = rad;
+        }else{
+            velY=2;
+            radius = rad*3/2;
+        }
+        //LevelsDatabase.screenHeight/600;
         Log.d("velY", " " + velY);
         Log.d("velY", " " + LevelsDatabase.screenHeight);
         textBinary = text;
