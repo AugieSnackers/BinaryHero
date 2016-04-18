@@ -26,7 +26,7 @@ public class GameArenaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_arena);
 
-
+        //GameArena.startTimer();
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
@@ -50,7 +50,9 @@ public class GameArenaActivity extends AppCompatActivity {
         });
 
     }
+
 }
+
 
 
     //disabling the back button

@@ -30,7 +30,7 @@ public class GameArena {
     //Timer related variables
 
 
-
+    //private Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
     private int threshold;//how times on/off the its rn before calling game over
     private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
@@ -225,6 +225,7 @@ public class GameArena {
                 }
 
             } else {
+                //stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
@@ -248,7 +249,17 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+    /*
+    public static void startTimer(){
 
+        chronometer.start();
+
+    }
+    public static void stopTimer(){
+        chronometer.stop();
+
+    }
+*/
 
 
 }
