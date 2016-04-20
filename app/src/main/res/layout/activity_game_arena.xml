@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:background="#b2adad">
 
-
-    <Chronometer
-        android:id="@+id/chronometer1"
-        android:textSize="40sp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="right|top" />
-
-
     />
 
 

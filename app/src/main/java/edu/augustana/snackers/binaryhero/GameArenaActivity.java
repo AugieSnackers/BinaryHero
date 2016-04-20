@@ -19,14 +19,16 @@ import com.com.example.nelly.binaryhero.R;
 
 public class GameArenaActivity extends AppCompatActivity {
 
-
-
+    long startTime;
+    long endTime;
+    long duration;
+    //public Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_arena);
-
-
+        // startTimer();
+        startTime = System.nanoTime();
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
@@ -48,9 +50,33 @@ public class GameArenaActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+        public long gameWon(){
+            endTime = System.nanoTime();
+            duration = (endTime - startTime);
+
+            //call popup window, pass in duration
+            return duration;
 
     }
-}
+
+
+    }
+
+//    public void startTimer(){
+//
+//        chronometer.start();
+//
+//    }
+//    public  void stopTimer(){
+//        chronometer.stop();
+//
+//    }
+
+
+
+
 
 
     //disabling the back button

@@ -30,7 +30,7 @@ public class GameArena {
     //Timer related variables
 
 
-
+    boolean gameWon = false;
     private int threshold;//how times on/off the its rn before calling game over
     private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
@@ -39,10 +39,11 @@ public class GameArena {
     private int mPlayerLevel;
     private Activity activity;
     private boolean isBinary;
+    private long startLevelTime;
 
 
     public GameArena(int level, boolean isBinary, Activity activity) {
-        mPlayerLevel = level;
+        //GameArenaActivity.stopTimer();
         this.activity = activity;
         this.isBinary = isBinary;
         nextLevel(level);
@@ -52,15 +53,12 @@ public class GameArena {
     public void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
+        mPlayerLevel = level;
         int radius = LevelsDatabase.radius[level];
         threshold = LevelsDatabase.threshhold[level];
 
         binaryLen = LevelsDatabase.binaryLen[level];
         numBalls = LevelsDatabase.numBalls[level];
-
-
-        //this.mPlayerLevel =mPlayerLevel;
-
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
@@ -81,14 +79,12 @@ public class GameArena {
                 }
             }
 
-
             BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, this);
             allBinaryBalls.add(binaryBall);
-
-
         }
         //shuffle them balls baby
         Collections.shuffle(allBinaryBalls);
+        startLevelTime = System.currentTimeMillis();
     }
 
 
@@ -195,8 +191,6 @@ public class GameArena {
         paint.setColor(LevelsDatabase.textColor);
 
         if (allBinaryBalls.size() > 0) {
-
-
             int prev;
             for (int i = 0; i < allBinaryBalls.size(); i++) {
 
@@ -207,10 +201,7 @@ public class GameArena {
                 } else {
                     allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getDecimalText(), isBinary);
                 }
-
-
                 //Log.d("BHERO", "x value = " + allBinaryBalls.get(i).getX());
-
             }
 
             paint.setTextSize(50 * 2);
@@ -223,20 +214,24 @@ public class GameArena {
                 } else {
                     canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
                 }
+                long elapsedTime = System.currentTimeMillis() - startLevelTime;
+                canvas.drawText("Time " + elapsedTime, 100, 400, paint);
 
             } else {
+               // GameArenaActivity.stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
+            //long finishTime = System.currentTimeMillis();
             paint.setTextSize(50);
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
-                nextLevel(++mPlayerLevel);
+                nextLevel(mPlayerLevel+1);
             } else {
 
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
@@ -248,6 +243,25 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+
+    public void gameWon(){
+        gameWon = true;
+
+
+        //GameArenaActivity.gameWon();
+
+
+    }
+//
+//    public static void startTimer(){
+//
+//        chronometer.start();
+//
+//    }
+//    public static void stopTimer(){
+//        chronometer.stop();
+//
+//    }
 
 
 

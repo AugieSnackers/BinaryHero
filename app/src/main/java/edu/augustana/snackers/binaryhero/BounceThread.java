@@ -22,6 +22,7 @@ public class BounceThread extends Thread {
     public void run() {
         try {
             while (isRunning) {
+                // record current time millis
                 Canvas canvas = surfaceHolder.lockCanvas();
 
                 gameArena.update(canvas.getWidth(),
@@ -29,6 +30,8 @@ public class BounceThread extends Thread {
                 gameArena.draw(canvas);
                 gameArena.drawPlayLabel(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
+                // find elapsed time
+                //Thread.sleep(100 - elapsed time maybe?);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
