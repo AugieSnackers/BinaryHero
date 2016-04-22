@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.ToggleButton;
+import android.widget.EditText;
 
 import com.com.example.nelly.binaryhero.R;
 
@@ -44,6 +45,10 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
                 Bundle extras = new Bundle();
+                EditText passWordText = (EditText) findViewById(R.id.password_Field);
+                if(isEmpty(passWordText)){
+                    
+                }
                 extras.putInt("PLAYER_LEVEL", 0);
                 extras.putBoolean("GAME_MODE", isBinary);
                 intent.putExtras(extras);
@@ -63,5 +68,13 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
 
+        public boolean isEmpty(EditText passwordText){
+            if(passwordText.getText().toString().trim().length() > 0) {
+                return false;
+            }
+            return true;
+
+        }
 }
+
 
