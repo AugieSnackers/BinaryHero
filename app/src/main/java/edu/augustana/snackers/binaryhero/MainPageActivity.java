@@ -47,7 +47,7 @@ public class MainPageActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 if(isEmpty(passWordText)){
-                    
+                    //place something here for no check 
                 }
                 extras.putInt("PLAYER_LEVEL", 0);
                 extras.putBoolean("GAME_MODE", isBinary);

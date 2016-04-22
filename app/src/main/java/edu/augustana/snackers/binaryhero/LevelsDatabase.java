@@ -19,6 +19,8 @@ public static int radius[] = { 50,50,50,50,60,60,60};
     public static int screenWidth = metrics.widthPixels;
     public static int screenHeight = metrics.heightPixels;
 
-   public static int passwords[] = {001,987,234,632,324};
+    public static int passwordsBase2[] = {001,987,234,632,324,875};
+    public static int passwordsBase10[] = {378,234,721,346,498,352};
+
     }
 
