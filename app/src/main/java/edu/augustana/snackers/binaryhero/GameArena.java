@@ -32,6 +32,8 @@ import android.widget.Button;
  *
  * @Author Nelly Cheboi
  */
+
+// code from http://www.androiddom.com/2011/06/displaying-android-pop-up-dialog.html
 public class GameArena {
     ArrayList<BinaryBall> allBinaryBalls;
 
@@ -229,7 +231,7 @@ public class GameArena {
                // GameArenaActivity.stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
-                showLevelPassword();
+
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
@@ -237,6 +239,7 @@ public class GameArena {
             paint.setTextSize(50);
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
+            //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
@@ -263,11 +266,11 @@ public class GameArena {
     }
 
 
-    private void showLevelPassword() {
+    public void showLevelPassword() {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle("Password");
-        helpBuilder.setMessage("Congrats the password for this level is" + "addPassword");
+        helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
         helpBuilder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
 
