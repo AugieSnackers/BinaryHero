@@ -17,6 +17,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.TimerTask;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -221,6 +229,7 @@ public class GameArena {
                // GameArenaActivity.stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
+                showLevelPassword();
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
@@ -251,6 +260,25 @@ public class GameArena {
         //GameArenaActivity.gameWon();
 
 
+    }
+
+
+    private void showLevelPassword() {
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+        helpBuilder.setTitle("Password");
+        helpBuilder.setMessage("Congrats the password for this level is" + "addPassword");
+        helpBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                    }
+                });
+
+        // Remember, create doesn't show the dialog
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
     }
 //
 //    public static void startTimer(){
