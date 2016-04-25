@@ -52,6 +52,22 @@ public class GameArenaActivity extends AppCompatActivity {
 //        public long gameWon(){
 //            endTime = System.nanoTime();
 //            duration = (endTime - startTime);
+        public long gameWon(){
+            endTime = System.nanoTime();
+            duration = (endTime - startTime);
+
+
+            //call popup window, pass in duration
+            return duration;
+
+
+
+    }
+
+
+    }
+
+//    public void startTimer(){
 //
 //            //call popup window, pass in duration
 //            return duration;

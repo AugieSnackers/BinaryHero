@@ -9,7 +9,8 @@ import android.view.SurfaceView;
  * Copied from the textBook need more commenting
  */
 
-public class BounceSurfaceView extends SurfaceView implements
+public class
+        BounceSurfaceView extends SurfaceView implements
         SurfaceHolder.Callback {
 
     private BounceThread bounceThread;

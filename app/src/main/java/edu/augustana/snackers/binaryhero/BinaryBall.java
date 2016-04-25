@@ -81,10 +81,12 @@ public class BinaryBall {
         paint.setColor(Color.WHITE);
         if (binaryMode) {
             paint.setTextSize(radius - 10);
+            canvas.drawText(text, (x - radius) + 5, y + (radius / 2) - 5, paint);
         } else {
             paint.setTextSize((radius * 3) / 2);
+            canvas.drawText(text, (x - radius)+15 , y+(radius / 2)-5 , paint);
         }
-        canvas.drawText(text, (x - radius)+5 , y+(radius / 2)-5 , paint);
+
 
     }
 

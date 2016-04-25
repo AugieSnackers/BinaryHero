@@ -20,6 +20,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.TimerTask;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -27,6 +35,8 @@ import java.util.TimerTask;
  *
  * @Author Nelly Cheboi
  */
+
+// code from http://www.androiddom.com/2011/06/displaying-android-pop-up-dialog.html
 public class GameArena {
     ArrayList<BinaryBall> allBinaryBalls;
 
@@ -114,7 +124,7 @@ public class GameArena {
 
                 }
             }
-        } catch (NullPointerException e) {
+        } catch(NullPointerException e) {
 
         }
     }
@@ -219,9 +229,10 @@ public class GameArena {
                 canvas.drawText("Time " + elapsedTime, 100, 400, paint);
 
             } else {
-                // GameArenaActivity.stopTimer();
+               // GameArenaActivity.stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
+
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
@@ -247,12 +258,13 @@ public class GameArena {
 
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
+            //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
                 nextLevel(mPlayerLevel + 1);
             } else {
-
+                showLevelPassword();
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }
@@ -262,6 +274,44 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
+
+    public void gameWon(){
+        gameWon = true;
+
+
+        //GameArenaActivity.gameWon();
+
+
+    }
+
+
+    public void showLevelPassword() {
+
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this.activity);
+        helpBuilder.setTitle("Password");
+        helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
+        helpBuilder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                    }
+                });
+
+        // Remember, create doesn't show the dialog
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
+    }
+//
+//    public static void startTimer(){
+//
+//        chronometer.start();
+//
+//    }
+//    public static void stopTimer(){
+//        chronometer.stop();
+//
+//    }
 
 
 
