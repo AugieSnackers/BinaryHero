@@ -245,7 +245,7 @@ public class GameArena {
             if (mPlayerLevel < 5) {
                 nextLevel(mPlayerLevel+1);
             } else {
-
+                showLevelPassword();
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }
@@ -266,9 +266,9 @@ public class GameArena {
     }
 
 
-    /*public void showLevelPassword() {
+    public void showLevelPassword() {
 
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this.activity);
         helpBuilder.setTitle("Password");
         helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
         helpBuilder.setPositiveButton("Ok",
@@ -282,7 +282,7 @@ public class GameArena {
         // Remember, create doesn't show the dialog
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
-    }*/
+    }
 //
 //    public static void startTimer(){
 //

@@ -19,6 +19,7 @@ public class MainPageActivity extends AppCompatActivity {
     private boolean isBinary;
     ToggleButton baseSwitch;
     Typeface myTypeface;
+    public int passWordLevel =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,18 @@ public class MainPageActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 passWordText.setTypeface(myTypeface);
-                if(isEmpty(passWordText)){
-                    extras.putInt("PLAYER_LEVEL", 0);
+                
+                if(!isEmpty(passWordText)){
+                    for(int i = 0 ; i < LevelsDatabase.getPassword().length; i++){
+                        if(LevelsDatabase.passwords.equals(passWordText)){
+                            passWordLevel = i;
+                        }
+                    }
                 }
-                else{
-                    //if(isBinary)
-                }
+                    //passWordLevel is started at 0 if no correct password
+                    extras.putInt("PLAYER_LEVEL", passWordLevel);
+
+
                 extras.putBoolean("GAME_MODE", isBinary);
                 intent.putExtras(extras);
                 startActivity(intent);
