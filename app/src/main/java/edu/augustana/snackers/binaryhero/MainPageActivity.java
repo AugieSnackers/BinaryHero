@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.ToggleButton;
 import android.widget.EditText;
 
@@ -47,22 +46,23 @@ public class MainPageActivity extends AppCompatActivity {
 
         Button startBtn = (Button) findViewById(R.id.start_btn);
 
+        assert startBtn != null;
         startBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 passWordText.setTypeface(myTypeface);
-                
+
                 if(!isEmpty(passWordText)){
-                    for(int i = 0 ; i < LevelsDatabase.getPassword().length; i++){
-                        if(LevelsDatabase.passwords.equals(passWordText)){
-                            passWordLevel = i;
+                    for(int i = 0 ; i < LevelsDatabase.PASSWORDS.length; i++){
+                        if(LevelsDatabase.PASSWORDS[i].equals(passWordText.getText())){
+                            passWordLevel = i + 1;
                         }
                     }
                 }
-                    //passWordLevel is started at 0 if no correct password
-                    extras.putInt("PLAYER_LEVEL", passWordLevel);
+                //passWordLevel is started at 0 if no correct password
+                extras.putInt("PLAYER_LEVEL", 0);
 
 
                 extras.putBoolean("GAME_MODE", isBinary);
