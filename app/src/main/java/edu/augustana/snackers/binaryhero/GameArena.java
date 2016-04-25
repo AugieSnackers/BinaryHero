@@ -2,12 +2,15 @@ package edu.augustana.snackers.binaryhero;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
@@ -27,8 +30,6 @@ import java.util.TimerTask;
 public class GameArena {
     ArrayList<BinaryBall> allBinaryBalls;
 
-    //Timer related variables
-
 
     boolean gameWon = false;
     private int threshold;//how times on/off the its rn before calling game over
@@ -43,7 +44,6 @@ public class GameArena {
 
 
     public GameArena(int level, boolean isBinary, Activity activity) {
-        //GameArenaActivity.stopTimer();
         this.activity = activity;
         this.isBinary = isBinary;
         nextLevel(level);
@@ -114,10 +114,11 @@ public class GameArena {
 
                 }
             }
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
 
         }
     }
+
     /**
      * removes the ball from the arraylist
      *
@@ -218,20 +219,38 @@ public class GameArena {
                 canvas.drawText("Time " + elapsedTime, 100, 400, paint);
 
             } else {
-               // GameArenaActivity.stopTimer();
+                // GameArenaActivity.stopTimer();
                 currentBallToFind = null;
                 canvas.drawText("GAME OVER!", 10, 300, paint);
                 mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
-            //long finishTime = System.currentTimeMillis();
+            long finishTime = System.currentTimeMillis() - startLevelTime;
             paint.setTextSize(50);
+            Log.d("Your Time", ": " + finishTime);
+
+
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(activity.getBaseContext());
+//            builder.setMessage("Your time: " + finishTime)
+//                    .setCancelable(false)
+//                    .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//            AlertDialog alert = builder.create();
+//            alert.show();
+
+
+
+
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
-                nextLevel(mPlayerLevel+1);
+                nextLevel(mPlayerLevel + 1);
             } else {
 
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
@@ -243,25 +262,6 @@ public class GameArena {
     public void drawPlayLabel(Canvas canvas) {
 
     }
-
-    public void gameWon(){
-        gameWon = true;
-
-
-        //GameArenaActivity.gameWon();
-
-
-    }
-//
-//    public static void startTimer(){
-//
-//        chronometer.start();
-//
-//    }
-//    public static void stopTimer(){
-//        chronometer.stop();
-//
-//    }
 
 
 

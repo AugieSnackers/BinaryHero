@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
@@ -22,13 +21,11 @@ public class GameArenaActivity extends AppCompatActivity {
     long startTime;
     long endTime;
     long duration;
-    //public Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_arena);
-        // startTimer();
-        startTime = System.nanoTime();
+        //startTime = System.nanoTime();
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
@@ -52,27 +49,17 @@ public class GameArenaActivity extends AppCompatActivity {
         });
     }
 
-        public long gameWon(){
-            endTime = System.nanoTime();
-            duration = (endTime - startTime);
-
-            //call popup window, pass in duration
-            return duration;
-
-    }
-
-
-    }
-
-//    public void startTimer(){
+//        public long gameWon(){
+//            endTime = System.nanoTime();
+//            duration = (endTime - startTime);
 //
-//        chronometer.start();
+//            //call popup window, pass in duration
+//            return duration;
 //
 //    }
-//    public  void stopTimer(){
-//        chronometer.stop();
-//
-//    }
+
+
+    }
 
 
 
