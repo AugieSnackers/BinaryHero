@@ -266,7 +266,7 @@ public class GameArena {
     }
 
 
-    public void showLevelPassword() {
+    /*public void showLevelPassword() {
 
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle("Password");
@@ -282,7 +282,7 @@ public class GameArena {
         // Remember, create doesn't show the dialog
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
-    }
+    }*/
 //
 //    public static void startTimer(){
 //

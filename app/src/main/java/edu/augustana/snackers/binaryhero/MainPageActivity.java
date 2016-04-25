@@ -1,6 +1,7 @@
 package edu.augustana.snackers.binaryhero;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,12 +18,15 @@ public class MainPageActivity extends AppCompatActivity {
 
     private boolean isBinary;
     ToggleButton baseSwitch;
+    Typeface myTypeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         baseSwitch = (ToggleButton) findViewById(R.id.toggleButton);
+        myTypeface = Typeface.createFromAsset(getAssets(), "Sansation-Regular.ttf");
+
 
         baseSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -41,11 +45,13 @@ public class MainPageActivity extends AppCompatActivity {
         }
 
         Button startBtn = (Button) findViewById(R.id.start_btn);
+
         startBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
+                passWordText.setTypeface(myTypeface);
                 if(isEmpty(passWordText)){
                     extras.putInt("PLAYER_LEVEL", 0);
                 }
@@ -66,6 +72,10 @@ public class MainPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        startBtn.setTypeface(myTypeface);
+        settingBtn.setTypeface(myTypeface);
+        baseSwitch.setTypeface(myTypeface);
 
     }
 
