@@ -54,9 +54,10 @@ public class MainPageActivity extends AppCompatActivity {
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 passWordText.setTypeface(myTypeface);
 
+                //Kaylee I pulled, it didn't commit so I made some changes
                 if(!isEmpty(passWordText)){
-                    for(int i = 0 ; i < LevelsDatabase.PASSWORDS.length; i++){
-                        if(LevelsDatabase.PASSWORDS[i].equals(passWordText.getText())){
+                    for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
+                        if(LevelsDatabase.passwords[i]==Integer.parseInt((passWordText.getText().toString()))){
                             passWordLevel = i + 1;
                         }
                     }

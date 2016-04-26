@@ -20,7 +20,7 @@ public static int radius[] = { 50,50,50,50,60,60,60};
     public static int screenHeight = metrics.heightPixels;
 
     public static int passwords[] = {001,987,234,632,324,875};
-
+ //not neccessary
     public static int[] getPassword(){
         return passwords;
     }
