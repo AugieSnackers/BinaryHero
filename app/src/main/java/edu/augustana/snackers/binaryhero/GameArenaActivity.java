@@ -1,7 +1,9 @@
 package edu.augustana.snackers.binaryhero;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -22,6 +24,9 @@ public class GameArenaActivity extends AppCompatActivity {
     long startTime;
     long endTime;
     long duration;
+
+    private MediaPlayer mediaPlayer;
+
     //public Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +55,32 @@ public class GameArenaActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mediaPlayer = MediaPlayer.create(this, R.raw.binaryheroingame);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
 
-        public long gameWon(){
-            endTime = System.nanoTime();
-            duration = (endTime - startTime);
+    public long gameWon() {
+        endTime = System.nanoTime();
+        duration = (endTime - startTime);
 
 
-            //call popup window, pass in duration
-            return duration;
-
-
-
-    }
+        //call popup window, pass in duration
+        return duration;
 
 
     }
+    @Override
+    protected void onDestroy() {
+        if (mediaPlayer.isPlaying() || mediaPlayer.isLooping()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+        super.onDestroy();
+    }
+
+
+}
 
 //    public void startTimer(){
 //
