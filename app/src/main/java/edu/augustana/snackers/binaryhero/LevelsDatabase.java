@@ -20,6 +20,8 @@ public class LevelsDatabase {
     public final static int SCREEN_HEIGHT = METRICS.heightPixels;
 
     public final static int passwords[] = {001,987,234,632,324,875};
+
+
     //not neccessary
    /* public static int[] getPassword(){
         return passwords;

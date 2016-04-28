@@ -52,6 +52,7 @@ public class MainPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), GameArenaActivity.class);
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
+                assert passWordText != null;
                 passWordText.setTypeface(myTypeface);
 
                 //Kaylee I pulled, it didn't commit so I made some changes
@@ -62,8 +63,10 @@ public class MainPageActivity extends AppCompatActivity {
                         }
                     }
                 }
+
                 //passWordLevel is started at 0 if no correct password
-                extras.putInt("PLAYER_LEVEL", 0);
+                //does this work?  need start level method normal start was at 0
+                extras.putInt("PLAYER_LEVEL", passWordLevel);
 
 
                 extras.putBoolean("GAME_MODE", isBinary);
@@ -74,6 +77,7 @@ public class MainPageActivity extends AppCompatActivity {
 
 
         Button settingBtn = (Button) findViewById(R.id.settings_btn);
+        assert settingBtn != null;
         settingBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {
                 Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);

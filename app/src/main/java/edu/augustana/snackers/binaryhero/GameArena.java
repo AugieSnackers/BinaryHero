@@ -269,7 +269,7 @@ public class GameArena {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
-//
+//`
 //    public static void startTimer(){
 //
 //        chronometer.start();
