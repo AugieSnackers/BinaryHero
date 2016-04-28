@@ -25,16 +25,16 @@ public class BinaryBall {
         x = posX;
         y = posY;
         radius = rad;
-        if(LevelsDatabase.screenHeight<1000){
+        if(LevelsDatabase.SCREEN_HEIGHT <1000){
             velY = 1;
             radius = rad;
         }else{
             velY=2;
             radius = rad*3/2;
         }
-        //LevelsDatabase.screenHeight/600;
+        //LevelsDatabase.SCREEN_HEIGHT/600;
         Log.d("velY", " " + velY);
-        Log.d("velY", " " + LevelsDatabase.screenHeight);
+        Log.d("velY", " " + LevelsDatabase.SCREEN_HEIGHT);
         textBinary = text;
         this.decimalValue = decimalValue;
         this.gameArena = gameArena;
@@ -62,11 +62,11 @@ public class BinaryBall {
             }
             //velY *= REVERSE;
         }
-//        if (x > rightWall - radius) {
-//            x = rightWall - radius;
+//        if (x > rightWall - RADIUS) {
+//            x = rightWall - RADIUS;
 //
-//        } else if (x < leftWall + radius) {
-//            x = leftWall + radius;
+//        } else if (x < leftWall + RADIUS) {
+//            x = leftWall + RADIUS;
 //
 //        }
 
@@ -76,7 +76,7 @@ public class BinaryBall {
     public void draw(Canvas canvas, String text, boolean binaryMode) {
 //TODO MAKE THE  BALLS BETTER LOOKING
         Paint paint = new Paint();
-        paint.setColor(LevelsDatabase.color[changeColorLevel]);
+        paint.setColor(LevelsDatabase.COLOR[changeColorLevel]);
         canvas.drawCircle(x, y, radius, paint);
         paint.setColor(Color.WHITE);
         if (binaryMode) {

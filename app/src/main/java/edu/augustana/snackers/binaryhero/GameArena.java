@@ -2,29 +2,15 @@ package edu.augustana.snackers.binaryhero;
 
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.widget.Chronometer;
-import android.widget.TextView;
-
-import com.com.example.nelly.binaryhero.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.TimerTask;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -64,26 +50,26 @@ public class GameArena {
         Random rand;
         gameIsOver = false;
         mPlayerLevel = level;
-        int radius = LevelsDatabase.radius[level];
-        threshold = LevelsDatabase.threshhold[level];
+        int radius = LevelsDatabase.RADIUS[level];
+        threshold = LevelsDatabase.THRESHOLD[level];
 
-        binaryLen = LevelsDatabase.binaryLen[level];
-        numBalls = LevelsDatabase.numBalls[level];
+        binaryLen = LevelsDatabase.BINARY_LEN[level];
+        numBalls = LevelsDatabase.NUM_BALLS[level];
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
-            int nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
-            int nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
+            int nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
+            int nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
 
             if (nextX < radius) {
                 nextX = nextX + radius;
             }
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
-                nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
-                nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
+                nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
+                nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
@@ -198,7 +184,7 @@ public class GameArena {
         //WIPE THE CANVAS CLEAN
         canvas.drawRGB(176, 175, 175);
         Paint paint = new Paint();
-        paint.setColor(LevelsDatabase.textColor);
+        paint.setColor(LevelsDatabase.TEXT_COLOR);
 
         if (allBinaryBalls.size() > 0) {
             int prev;

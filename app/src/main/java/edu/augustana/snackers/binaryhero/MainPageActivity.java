@@ -18,7 +18,7 @@ public class MainPageActivity extends AppCompatActivity {
     private boolean isBinary;
     ToggleButton baseSwitch;
     Typeface myTypeface;
-    public int passWordLevel =0;
+    public int passWordLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
