@@ -13,12 +13,13 @@ public class LevelsDatabase {
     public final static int BINARY_LEN[] = { 4,4,4,4,5,5,5};
     public final static int THRESHOLD[] = { 2,2,4,4,6,6,6};
 
-    public final  static int COLOR[] ={Color.BLACK,Color.RED};
+    public final static int COLOR[] ={Color.BLACK,Color.RED};
     public final static int TEXT_COLOR = Color.CYAN;
     public final static DisplayMetrics METRICS = Resources.getSystem().getDisplayMetrics();
     public final static int SCREEN_WIDTH = METRICS.widthPixels;
     public final static int SCREEN_HEIGHT = METRICS.heightPixels;
 
+    //TODO: change these to Strings and use educational something
     public final static int passwords[] = {001,987,234,632,324,875};
 
 

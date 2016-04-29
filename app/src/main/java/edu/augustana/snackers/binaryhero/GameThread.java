@@ -6,13 +6,13 @@ import android.view.SurfaceHolder;
 /**
  * copied from textbook needs commenting
  */
-public class BounceThread extends Thread {
+public class GameThread extends Thread {
 
     private SurfaceHolder surfaceHolder;
     private GameArena gameArena;
     private boolean isRunning;
 
-    public BounceThread(SurfaceHolder sh, GameArena gameArena) {
+    public GameThread(SurfaceHolder sh, GameArena gameArena) {
 
         isRunning = true;
         surfaceHolder = sh;

@@ -3,24 +3,17 @@ package edu.augustana.snackers.binaryhero;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.FrameLayout;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.com.example.nelly.binaryhero.R;
 
 
 public class GameArenaActivity extends AppCompatActivity {
 
+    public static final String PLAYER_LEVEL_EXTRA = "PLAYER_LEVEL";
     long startTime;
     long endTime;
     long duration;
@@ -39,11 +32,11 @@ public class GameArenaActivity extends AppCompatActivity {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final GameArena gameArena = new GameArena(extras.getInt("PLAYER_lEVEL", MainPageActivity.passwordLevel), extras.getBoolean("GAME_MODE", true), this);
+        final GameArena gameArena = new GameArena(extras.getInt(PLAYER_LEVEL_EXTRA, 0), extras.getBoolean("GAME_MODE", true), this);
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 
-        BounceSurfaceView bounceSurfaceView = new BounceSurfaceView(this, gameArena, null);
+        GameSurfaceView bounceSurfaceView = new GameSurfaceView(this, gameArena, null);
         frameLayout.addView(bounceSurfaceView);
         frameLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override

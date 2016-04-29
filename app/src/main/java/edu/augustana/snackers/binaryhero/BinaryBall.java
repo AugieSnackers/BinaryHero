@@ -6,18 +6,22 @@ import android.graphics.Paint;
 import android.util.Log;
 
 /**
- * This class cointains the BinaryBall object
+ * This class contains the BinaryBall object
  */
 
 public class BinaryBall {
     private int radius;
     private int x;
     private int y;
+    //TODO: make ball count down instead of UP
     private int numOfTimeOutOfScreen = 0;
+    // TODO: Just store the color of the ball?
     private int changeColorLevel = 0;
     private int velY;
     private String textBinary;//corresponding binary value
     private int decimalValue;
+    // TODO: remove all? references to gameArena from ball, and have the gameArena do that logic, by
+    //   getting data from the ball objects, and making the decisions.
     private GameArena gameArena;
 
 
@@ -33,6 +37,7 @@ public class BinaryBall {
             radius = rad*3/2;
         }
         //LevelsDatabase.SCREEN_HEIGHT/600;
+        //TODO: Eventually clear out all DEBUG logging code
         Log.d("velY", " " + velY);
         Log.d("velY", " " + LevelsDatabase.SCREEN_HEIGHT);
         textBinary = text;

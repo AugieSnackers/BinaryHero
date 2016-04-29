@@ -10,19 +10,19 @@ import android.view.SurfaceView;
  */
 
 public class
-        BounceSurfaceView extends SurfaceView implements
+        GameSurfaceView extends SurfaceView implements
         SurfaceHolder.Callback {
 
-    private BounceThread bounceThread;
+    private GameThread bounceThread;
 
-    public BounceSurfaceView(Context context, GameArena gameArena, AttributeSet attrs) {
+    public GameSurfaceView(Context context, GameArena gameArena, AttributeSet attrs) {
         super(context, attrs);
 
         SurfaceHolder holder = getHolder();
         holder.addCallback(this);
 
         //CREATE A NEW THREAD
-        bounceThread = new BounceThread(holder, gameArena);
+        bounceThread = new GameThread(holder, gameArena);
     }
 
     //IMPLEMENT THE INHERITED ABSTRACT METHODS

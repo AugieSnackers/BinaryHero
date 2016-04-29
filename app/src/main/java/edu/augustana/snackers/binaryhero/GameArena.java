@@ -32,7 +32,7 @@ public class GameArena {
     private int numBalls;//how balls on the screen
     private BinaryBall currentBallToFind = null;
     boolean gameIsOver;
-    private int mPlayerLevel = MainPageActivity.passwordLevel;
+    private int mPlayerLevel;
     private Activity activity;
     private boolean isBinary;
     private long startLevelTime;
@@ -43,10 +43,9 @@ public class GameArena {
         this.activity = activity;
         this.isBinary = isBinary;
         nextLevel(level);
-
     }
 
-    public void nextLevel(int level) {
+    public synchronized void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
         mPlayerLevel = level;
@@ -99,15 +98,14 @@ public class GameArena {
         try {
             for (int i = 0; i < allBinaryBalls.size(); i++) {
                 BinaryBall binaryBall = allBinaryBalls.get(i);
-                float xDiff = x - allBinaryBalls.get(i).getX();
-                float yDiff = y - allBinaryBalls.get(i).getY();
+                float xDiff = x - binaryBall.getX();
+                float yDiff = y - binaryBall.getY();
+                //TODO: Fix more
                 float diameter = allBinaryBalls.get(i).getRadius() * 2;
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));
                     }
-
-
                 }
             }
         } catch(NullPointerException e) {
@@ -119,7 +117,7 @@ public class GameArena {
      *
      * @param ball
      */
-    public void removeBall(BinaryBall ball) {
+    public synchronized void removeBall(BinaryBall ball) {
         allBinaryBalls.remove(ball);
         Collections.shuffle(allBinaryBalls);
     }
@@ -131,7 +129,7 @@ public class GameArena {
      * @param nextY
      * @return
      */
-    public boolean checkForOverStacking(int nextX, int nextY) {
+    public synchronized boolean checkForOverStacking(int nextX, int nextY) {
 
         for (int i = 0; i < allBinaryBalls.size(); i++) {
 
@@ -153,7 +151,7 @@ public class GameArena {
      * @param width
      * @param height
      */
-    public void update(int width, int height) {
+    public synchronized void update(int width, int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
             allBinaryBalls.get(i).move(0, 0, width, height);
         }
@@ -229,9 +227,10 @@ public class GameArena {
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
+                showLevelPassword();
                 nextLevel(mPlayerLevel+1);
             } else {
-                showLevelPassword();
+
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }
