@@ -36,6 +36,7 @@ public class BinaryBall {
             velY=2;
             radius = rad*3/2;
         }
+
         //LevelsDatabase.SCREEN_HEIGHT/600;
         //TODO: Eventually clear out all DEBUG logging code
         Log.d("velY", " " + velY);
