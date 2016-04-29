@@ -39,7 +39,7 @@ public class GameArenaActivity extends AppCompatActivity {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final GameArena gameArena = new GameArena(extras.getInt("PLAYER_lEVEL", 0), extras.getBoolean("GAME_MODE", true), this);
+        final GameArena gameArena = new GameArena(extras.getInt("PLAYER_lEVEL", MainPageActivity.passwordLevel), extras.getBoolean("GAME_MODE", true), this);
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 

@@ -18,7 +18,7 @@ public class MainPageActivity extends AppCompatActivity {
     private boolean isBinary;
     ToggleButton baseSwitch;
     Typeface myTypeface;
-    public int passWordLevel = 0;
+    public static int passwordLevel = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +59,14 @@ public class MainPageActivity extends AppCompatActivity {
                 if(!isEmpty(passWordText)){
                     for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
                         if(LevelsDatabase.passwords[i]==Integer.parseInt((passWordText.getText().toString()))){
-                            passWordLevel = i + 1;
+                            passwordLevel = i + 1;
                         }
                     }
                 }
 
-                //passWordLevel is started at 0 if no correct password
+                //passwordLevel is started at 0 if no correct password
                 //does this work?  need start level method normal start was at 0
-                extras.putInt("PLAYER_LEVEL", passWordLevel);
+                extras.putInt("PLAYER_LEVEL", passwordLevel);
 
 
                 extras.putBoolean("GAME_MODE", isBinary);

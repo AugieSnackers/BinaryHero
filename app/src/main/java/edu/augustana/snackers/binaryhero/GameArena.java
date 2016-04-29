@@ -32,7 +32,7 @@ public class GameArena {
     private int numBalls;//how balls on the screen
     private BinaryBall currentBallToFind = null;
     boolean gameIsOver;
-    private int mPlayerLevel;
+    private int mPlayerLevel = MainPageActivity.passwordLevel;
     private Activity activity;
     private boolean isBinary;
     private long startLevelTime;
