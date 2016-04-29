@@ -229,9 +229,11 @@ public class GameArena {
             //TODO add pop up button on options of the game
             //NEXT LEVEL
             if (mPlayerLevel < 5) {
-                nextLevel(mPlayerLevel+1);
+                canvas.drawText("Level Password " + LevelsDatabase.passwords[mPlayerLevel+1], 20,300,paint);
+                nextLevel(mPlayerLevel + 1);
+
             } else {
-                showLevelPassword();
+
                 canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
             }
         }

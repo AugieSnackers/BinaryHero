@@ -18,7 +18,7 @@ public class MainPageActivity extends AppCompatActivity {
     private boolean isBinary;
     ToggleButton baseSwitch;
     Typeface myTypeface;
-    public static int passwordLevel = 2;
+    public static int passwordLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

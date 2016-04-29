@@ -32,6 +32,7 @@ public class BinaryBall {
             velY=2;
             radius = rad*3/2;
         }
+
         //LevelsDatabase.SCREEN_HEIGHT/600;
         Log.d("velY", " " + velY);
         Log.d("velY", " " + LevelsDatabase.SCREEN_HEIGHT);
