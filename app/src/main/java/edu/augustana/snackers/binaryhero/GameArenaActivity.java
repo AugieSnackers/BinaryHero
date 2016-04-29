@@ -14,6 +14,7 @@ import com.com.example.nelly.binaryhero.R;
 public class GameArenaActivity extends AppCompatActivity {
 
     public static final String PLAYER_LEVEL_EXTRA = "PLAYER_LEVEL";
+    public static final String GAME_MODE_EXTRA = "GAME_MODE";
     long startTime;
     long endTime;
     long duration;
@@ -32,7 +33,7 @@ public class GameArenaActivity extends AppCompatActivity {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final GameArena gameArena = new GameArena(extras.getInt(PLAYER_LEVEL_EXTRA, 0), extras.getBoolean("GAME_MODE", true), this);
+        final GameArena gameArena = new GameArena(extras.getInt(PLAYER_LEVEL_EXTRA, 0), extras.getBoolean(GAME_MODE_EXTRA, true), this);
         // INSTANTIATE A CUSTOM SURFACE VIEW
         // ADD IT TO THE FRAMELAYOUT
 

@@ -100,8 +100,7 @@ public class GameArena {
                 BinaryBall binaryBall = allBinaryBalls.get(i);
                 float xDiff = x - binaryBall.getX();
                 float yDiff = y - binaryBall.getY();
-                //TODO: Fix more
-                float diameter = allBinaryBalls.get(i).getRadius() * 2;
+                float diameter = binaryBall.getRadius() * 2;
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));

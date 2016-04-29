@@ -50,8 +50,7 @@ public class MainPageActivity extends AppCompatActivity {
                 //passwordLevel is started at 0 if no correct password
                 //does this work?  need start level method normal start was at 0
                 extras.putInt(GameArenaActivity.PLAYER_LEVEL_EXTRA, passwordLevel);
-                //TODO: also make the GAME_MODE extra string into a constant...
-                extras.putBoolean("GAME_MODE", baseSwitch.isChecked());
+                extras.putBoolean(GameArenaActivity.GAME_MODE_EXTRA, baseSwitch.isChecked());
                 intent.putExtras(extras);
                 startActivity(intent);
             }
