@@ -41,7 +41,7 @@ public class MainPageActivity extends AppCompatActivity {
 
                 if(!isEmpty(passWordText)){
                     for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
-                        if(LevelsDatabase.passwords[i]==Integer.parseInt((passWordText.getText().toString()))){
+                        if(LevelsDatabase.passwords[i].equals(passWordText.getText().toString())){
                             passwordLevel = i + 1;
                         }
                     }
