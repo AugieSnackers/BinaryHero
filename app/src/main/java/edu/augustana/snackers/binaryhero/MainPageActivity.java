@@ -1,14 +1,11 @@
 package edu.augustana.snackers.binaryhero;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import android.widget.EditText;
 
@@ -24,7 +21,8 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_page);
+
         baseSwitch = (ToggleButton) findViewById(R.id.toggleButton);
         myTypeface = Typeface.createFromAsset(getAssets(), "Sansation-Regular.ttf");
 
@@ -79,6 +77,8 @@ public class MainPageActivity extends AppCompatActivity {
             return true;
 
         }
+
+
 
 }
 

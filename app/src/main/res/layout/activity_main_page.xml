@@ -11,7 +11,7 @@
         android:layout_width="201dp"
         android:layout_height="125dp"
         android:layout_gravity="center_horizontal|top"
-        android:backgroundTint="#010101"
+        android:backgroundTint="#000000"
         android:text="START"
         android:textColor="#fefdfd"
         android:textSize="48dp"
@@ -25,7 +25,7 @@
         android:textOff="BASE 10"
         android:textColor="#fdfbfb"
         android:textSize="44dp"
-        android:backgroundTint="#010101"
+        android:backgroundTint="#000000"
         android:id="@+id/toggleButton"
         android:layout_gravity="center_horizontal|bottom"
         android:checked="true"
@@ -48,8 +48,5 @@
         android:background="@drawable/edit_rect"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff" />
-
-
-
 
 </FrameLayout>
