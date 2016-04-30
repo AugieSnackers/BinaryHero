@@ -41,10 +41,13 @@
         android:layout_gravity="center"
         android:layout_above="@+id/toggleButton"
         android:layout_centerHorizontal="true"
-        android:hint="Password"
+        android:hint="PASSWORD"
         android:textAlignment="center"
         android:textSize="30sp"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:background="@drawable/edit_rect"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
 
 
 

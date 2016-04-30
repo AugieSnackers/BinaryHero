@@ -297,7 +297,7 @@ public class GameArena {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                nextLevel(0);
+                                nextLevel(mPlayerLevel);
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
