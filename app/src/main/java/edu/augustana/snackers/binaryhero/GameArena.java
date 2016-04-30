@@ -2,15 +2,14 @@ package edu.augustana.snackers.binaryhero;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -36,6 +35,8 @@ public class GameArena {
     private Activity activity;
     private boolean isBinary;
     private long startLevelTime;
+    private boolean displayWindow;
+
 
 
     public GameArena(int level, boolean isBinary, Activity activity) {
@@ -52,6 +53,7 @@ public class GameArena {
         int radius = LevelsDatabase.RADIUS[level];
         threshold = LevelsDatabase.THRESHOLD[level];
 
+        displayWindow = true;
         binaryLen = LevelsDatabase.BINARY_LEN[level];
         numBalls = LevelsDatabase.NUM_BALLS[level];
 
@@ -107,10 +109,11 @@ public class GameArena {
                     }
                 }
             }
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
 
         }
     }
+
     /**
      * removes the ball from the arraylist
      *
@@ -118,7 +121,7 @@ public class GameArena {
      */
     public synchronized void removeBall(BinaryBall ball) {
         allBinaryBalls.remove(ball);
-        Collections.shuffle(allBinaryBalls);
+
     }
 
     /**
@@ -128,7 +131,7 @@ public class GameArena {
      * @param nextY
      * @return
      */
-    public synchronized boolean checkForOverStacking(int nextX, int nextY) {
+    public boolean checkForOverStacking(int nextX, int nextY) {
 
         for (int i = 0; i < allBinaryBalls.size(); i++) {
 
@@ -177,14 +180,14 @@ public class GameArena {
      *
      * @param canvas
      */
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         //WIPE THE CANVAS CLEAN
         canvas.drawRGB(176, 175, 175);
         Paint paint = new Paint();
         paint.setColor(LevelsDatabase.TEXT_COLOR);
 
         if (allBinaryBalls.size() > 0) {
-            int prev;
+
             for (int i = 0; i < allBinaryBalls.size(); i++) {
 
                 //DRAW THE BALL
@@ -194,7 +197,7 @@ public class GameArena {
                 } else {
                     allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getDecimalText(), isBinary);
                 }
-                //Log.d("BHERO", "x value = " + allBinaryBalls.get(i).getX());
+
             }
 
             paint.setTextSize(50 * 2);
@@ -207,15 +210,14 @@ public class GameArena {
                 } else {
                     canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
                 }
-                long elapsedTime = System.currentTimeMillis() - startLevelTime;
-                canvas.drawText("Time " + elapsedTime, 100, 400, paint);
-
             } else {
-               // GameArenaActivity.stopTimer();
+                // GameArenaActivity.stopTimer();
+                if(displayWindow) {
+                    displayWindow = false;
+                    showGameOver();
+                }
                 currentBallToFind = null;
-                canvas.drawText("GAME OVER!", 10, 300, paint);
 
-                mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
             //long finishTime = System.currentTimeMillis();
@@ -225,59 +227,89 @@ public class GameArena {
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < 5) {
+            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+                displayWindow = false;
                 showLevelPassword();
-                nextLevel(mPlayerLevel+1);
-            } else {
 
-                canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
+            } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+                displayWindow = false;
+               showEndGame();
             }
         }
 
     }
 
-    public void drawPlayLabel(Canvas canvas) {
-
-    }
-
-    public void gameWon(){
-        gameWon = true;
-
-
-        //GameArenaActivity.gameWon();
-
-
-    }
-
 
     public void showLevelPassword() {
+        final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("PASSWORD");
+                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds");
+                helpBuilder.setPositiveButton("GOT IT!",
+                        new DialogInterface.OnClickListener() {
 
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this.activity);
-        helpBuilder.setTitle("Password");
-        helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
-        helpBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                nextLevel(mPlayerLevel + 1);
+                            }
+                        });
 
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                    }
-                });
+                // Remember, create doesn't show the dialog
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
 
-        // Remember, create doesn't show the dialog
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
     }
-//`
-//    public static void startTimer(){
-//
-//        chronometer.start();
-//
-//    }
-//    public static void stopTimer(){
-//        chronometer.stop();
-//
-//    }
 
+    public void showEndGame() {
 
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("CONGRATULATIONS");
+                helpBuilder.setMessage("YOU ARE THE NEW BINARY HERO");
+                helpBuilder.setPositiveButton("THANK YOU",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                activity.finish();
+                            }
+
+                        });
+
+                // Remember, create doesn't show the dialog
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
+    }
+
+    public void showGameOver() {
+
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("GAME OVER")
+                        .setMessage("CONTINUE")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                nextLevel(0);
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {(activity).finish();
+
+                            }
+                        });
+
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
+    }
 
 }

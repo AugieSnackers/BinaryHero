@@ -42,7 +42,7 @@ public class MainPageActivity extends AppCompatActivity {
                 if(!isEmpty(passWordText)){
                     for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
                         if(LevelsDatabase.passwords[i].equals(passWordText.getText().toString())){
-                            passwordLevel = i + 1;
+                            passwordLevel = i+1;
                         }
                     }
                 }
@@ -57,17 +57,16 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
 
-        Button settingBtn = (Button) findViewById(R.id.settings_btn);
-        assert settingBtn != null;
-        settingBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View btn) {
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Button settingBtn = (Button) findViewById(R.id.settings_btn);
+//        assert settingBtn != null;
+//        settingBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View btn) {
+//                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         startBtn.setTypeface(myTypeface);
-        settingBtn.setTypeface(myTypeface);
         baseSwitch.setTypeface(myTypeface);
 
     }
@@ -80,23 +79,7 @@ public class MainPageActivity extends AppCompatActivity {
             return true;
 
         }
-    public void showLevelPassword(int mPlayerLevel) {
 
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-        helpBuilder.setTitle("Password");
-        helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
-        helpBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                    }
-                });
-
-        // Remember, create doesn't show the dialog
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }
 }
 
 

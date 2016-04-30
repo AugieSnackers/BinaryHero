@@ -28,7 +28,6 @@ public class GameThread extends Thread {
                 gameArena.update(canvas.getWidth(),
                         canvas.getHeight());
                 gameArena.draw(canvas);
-                gameArena.drawPlayLabel(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
                 // find elapsed time
                 //Thread.sleep(100 - elapsed time maybe?);
