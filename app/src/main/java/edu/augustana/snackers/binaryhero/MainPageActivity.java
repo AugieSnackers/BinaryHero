@@ -43,6 +43,7 @@ public class MainPageActivity extends AppCompatActivity {
                             passwordLevel = i+1;
                         }
                     }
+
                 }
 
                 //passwordLevel is started at 0 if no correct password
@@ -51,6 +52,8 @@ public class MainPageActivity extends AppCompatActivity {
                 extras.putBoolean(GameArenaActivity.GAME_MODE_EXTRA, baseSwitch.isChecked());
                 intent.putExtras(extras);
                 startActivity(intent);
+                passWordText.setText("");//reset the password edit text
+
             }
         });
 
