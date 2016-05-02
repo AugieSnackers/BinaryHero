@@ -44,8 +44,13 @@ public class GameArenaActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 float x = event.getX();
                 float y = event.getY();
-
-                gameArena.findBall(x, y);
+                if (!gameArena.findBall(x, y)) {
+                    gameArena.increaseWrongGuessCount();
+                    // TODO: Play sound effect (like an alarming beep or something)
+                    if (gameArena.increaseBallVelocity()) {
+                        // TODO: Play a 'whoosh' or siren or alarm sound effect to indicate speed increase
+                    }
+                }
                 return false;
             }
         });

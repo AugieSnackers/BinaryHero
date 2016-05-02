@@ -23,6 +23,8 @@ public class BinaryBall {
     // TODO: remove all? references to gameArena from ball, and have the gameArena do that logic, by
     //   getting data from the ball objects, and making the decisions.
     private GameArena gameArena;
+    private static final double VELOCITY_PENALTY = 1;
+    private static final double VELOCITY_LIMIT = 5;
 
 
     public BinaryBall(int posX, int posY, int rad, String text, int decimalValue, GameArena gameArena) {
@@ -33,7 +35,7 @@ public class BinaryBall {
             velY = 1;
             radius = rad;
         }else{
-            velY=2;
+            velY = 2;
             radius = rad*3/2;
         }
 
@@ -121,5 +123,14 @@ public class BinaryBall {
 
     public int getDecimalValue() {
         return decimalValue;
+    }
+
+    /**
+     * Increases the velocity of this ball by the penalty amount without exceeding the velocity limit.
+     */
+    public void increaseVelocity() {
+        if (velY < VELOCITY_LIMIT) {
+            velY += VELOCITY_PENALTY;
+        }
     }
 }

@@ -29,6 +29,7 @@ public class GameArena {
     private int threshold;//how times on/off the its rn before calling game over
     private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
+    private int wrongGuesses;
     private BinaryBall currentBallToFind = null;
     boolean gameIsOver;
     private int mPlayerLevel;
@@ -52,6 +53,7 @@ public class GameArena {
         mPlayerLevel = level;
         int radius = LevelsDatabase.RADIUS[level];
         threshold = LevelsDatabase.THRESHOLD[level];
+        wrongGuesses = 0;
 
         displayWindow = true;
         binaryLen = LevelsDatabase.BINARY_LEN[level];
@@ -96,7 +98,7 @@ public class GameArena {
      * @param x
      * @param y
      */
-    public void findBall(float x, float y) {
+    public boolean findBall(float x, float y) {
         try {
             for (int i = 0; i < allBinaryBalls.size(); i++) {
                 BinaryBall binaryBall = allBinaryBalls.get(i);
@@ -106,12 +108,14 @@ public class GameArena {
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));
+                        return true;
                     }
                 }
             }
         } catch (NullPointerException e) {
 
         }
+        return false;
     }
 
     /**
@@ -239,6 +243,28 @@ public class GameArena {
 
     }
 
+    /**
+     * Increases binary ball velocity for every nth wrong guess.
+     *
+     * @return if velocity was increased
+     */
+    public boolean increaseBallVelocity() {
+        int n = 3;
+        if (wrongGuesses % n == 0) {
+            for (BinaryBall ball : allBinaryBalls) {
+                ball.increaseVelocity();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Increments the counter which tracks the number of incorrect guesses.
+     */
+    public void increaseWrongGuessCount() {
+        wrongGuesses++;
+    }
 
     public void showLevelPassword() {
         final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;

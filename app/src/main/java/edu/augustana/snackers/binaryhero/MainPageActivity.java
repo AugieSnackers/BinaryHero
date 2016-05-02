@@ -38,6 +38,7 @@ public class MainPageActivity extends AppCompatActivity {
                 passWordText.setTypeface(myTypeface);
 
                 if(!isEmpty(passWordText)){
+                    // TODO: Fix problem loading level by password for higher levels
                     for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
                         if(LevelsDatabase.passwords[i].equals(passWordText.getText().toString())){
                             passwordLevel = i+1;
