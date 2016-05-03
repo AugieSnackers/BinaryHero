@@ -25,8 +25,7 @@ public class GameThread extends Thread {
                 // record current time millis
                 Canvas canvas = surfaceHolder.lockCanvas();
 
-                gameArena.update(canvas.getWidth(),
-                        canvas.getHeight());
+                gameArena.update(canvas.getHeight());
                 gameArena.draw(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
                 // find elapsed time

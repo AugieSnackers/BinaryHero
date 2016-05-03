@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import java.util.logging.Level;
+
 /**
  * This class contains the BinaryBall object
  */
@@ -14,29 +16,25 @@ public class BinaryBall {
     private int x;
     private int y;
     //TODO: make ball count down instead of UP
-    private int numOfTimeOutOfScreen = 0;
-    // TODO: Just store the color of the ball?
-    private int changeColorLevel = 0;
+    private int numTimesOffScreen = 0;
     private int velY;
     private String textBinary;//corresponding binary value
     private int decimalValue;
-    // TODO: remove all? references to gameArena from ball, and have the gameArena do that logic, by
-    //   getting data from the ball objects, and making the decisions.
-    private GameArena gameArena;
+    private int primaryColor, textColor;
     private static final double VELOCITY_PENALTY = 1;
     private static final double VELOCITY_LIMIT = 5;
 
 
-    public BinaryBall(int posX, int posY, int rad, String text, int decimalValue, GameArena gameArena) {
+    public BinaryBall(int posX, int posY, int rad, String text, int decimalValue, int primaryColor, int textColor) {
         x = posX;
         y = posY;
         radius = rad;
-        if(LevelsDatabase.SCREEN_HEIGHT <1000){
+        if (LevelsDatabase.SCREEN_HEIGHT < 1000) {
             velY = 1;
             radius = rad;
-        }else{
+        } else {
             velY = 2;
-            radius = rad*3/2;
+            radius = rad * 3 / 2;
         }
 
         //LevelsDatabase.SCREEN_HEIGHT/600;
@@ -45,11 +43,12 @@ public class BinaryBall {
         Log.d("velY", " " + LevelsDatabase.SCREEN_HEIGHT);
         textBinary = text;
         this.decimalValue = decimalValue;
-        this.gameArena = gameArena;
+        numTimesOffScreen = 0;
+        this.primaryColor = primaryColor;
+        this.textColor = textColor;
     }
 
-    public void move(int leftWall, int topWall,
-                     int rightWall, int bottomWall) {
+    public void move(int topWall, int bottomWall) {
         //MOVE BALL
         y += velY;
 
@@ -57,17 +56,7 @@ public class BinaryBall {
         //checks if balls reaching the bottom and what to do with it
         if (y > bottomWall) {
             y = topWall;
-            numOfTimeOutOfScreen++;
-            if (numOfTimeOutOfScreen == gameArena.getThreshold() - 1) {
-                changeColorLevel = 1;
-
-            }
-
-            if (numOfTimeOutOfScreen >= gameArena.getThreshold()) {
-                gameArena.gameIsOver = true;
-                gameArena.removeBall(this);
-
-            }
+            numTimesOffScreen++;
             //velY *= REVERSE;
         }
 //        if (x > rightWall - RADIUS) {
@@ -82,17 +71,17 @@ public class BinaryBall {
     }
 
     public void draw(Canvas canvas, String text, boolean binaryMode) {
-//TODO MAKE THE  BALLS BETTER LOOKING
+    //TODO MAKE THE  BALLS BETTER LOOKING
         Paint paint = new Paint();
-        paint.setColor(LevelsDatabase.COLOR[changeColorLevel]);
+        paint.setColor(primaryColor);
         canvas.drawCircle(x, y, radius, paint);
-        paint.setColor(Color.WHITE);
+        paint.setColor(textColor);
         if (binaryMode) {
             paint.setTextSize(radius - 10);
             canvas.drawText(text, (x - radius) + 5, y + (radius / 2) - 5, paint);
         } else {
             paint.setTextSize((radius * 3) / 2);
-            canvas.drawText(text, (x - radius)+15 , y+(radius / 2)-5 , paint);
+            canvas.drawText(text, (x - radius) + 15, y + (radius / 2) - 5, paint);
         }
 
 
@@ -111,10 +100,10 @@ public class BinaryBall {
     }
 
     public String getDecimalText() {
-        if(decimalValue<10){
-            return "0"+decimalValue;
+        if (decimalValue < 10) {
+            return "0" + decimalValue;
         }
-        return decimalValue+"";
+        return decimalValue + "";
     }
 
     public String getBinary() {
@@ -133,4 +122,13 @@ public class BinaryBall {
             velY += VELOCITY_PENALTY;
         }
     }
+
+    public int getNumTimesOffScreen() {
+        return numTimesOffScreen;
+    }
+
+    public void setColor(int newColor) {
+        primaryColor = newColor;
+    }
+
 }

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
@@ -25,13 +26,12 @@ public class GameArena {
     //Timer related variables
 
 
-    boolean gameWon = false;
     private int threshold;//how times on/off the its rn before calling game over
     private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
     private int wrongGuesses;
     private BinaryBall currentBallToFind = null;
-    boolean gameIsOver;
+    private boolean gameIsOver;
     private int mPlayerLevel;
     private Activity activity;
     private boolean isBinary;
@@ -46,7 +46,6 @@ public class GameArena {
         this.isBinary = isBinary;
         nextLevel(level);
     }
-
     public synchronized void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
@@ -78,7 +77,7 @@ public class GameArena {
                 }
             }
 
-            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, this);
+            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, LevelsDatabase.COLOR[0], Color.WHITE);
             allBinaryBalls.add(binaryBall);
         }
         //shuffle them balls baby
@@ -125,7 +124,6 @@ public class GameArena {
      */
     public synchronized void removeBall(BinaryBall ball) {
         allBinaryBalls.remove(ball);
-
     }
 
     /**
@@ -154,12 +152,19 @@ public class GameArena {
     /**
      * redraw the ball to simulate the moving
      *
-     * @param width
      * @param height
      */
-    public synchronized void update(int width, int height) {
+    public synchronized void update(int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
-            allBinaryBalls.get(i).move(0, 0, width, height);
+            allBinaryBalls.get(i).move(0, height);
+            if (allBinaryBalls.get(i).getNumTimesOffScreen() >= threshold - 1) {
+                if (allBinaryBalls.get(i).getNumTimesOffScreen() == threshold) {
+                    removeBall(allBinaryBalls.get(i));
+                    gameIsOver = true;
+                } else {
+                    allBinaryBalls.get(i).setColor(LevelsDatabase.COLOR[1]);
+                }
+            }
         }
     }
 
@@ -204,7 +209,7 @@ public class GameArena {
 
             }
 
-            paint.setTextSize(50 * 2);
+            paint.setTextSize(100);
 
             if (!gameIsOver) {
                 currentBallToFind = allBinaryBalls.get(0);
@@ -249,10 +254,10 @@ public class GameArena {
      * @return if velocity was increased
      */
     public boolean increaseBallVelocity() {
-        int n = 3;
+        int n = 5;
         if (wrongGuesses % n == 0) {
-            for (BinaryBall ball : allBinaryBalls) {
-                ball.increaseVelocity();
+            for (int i = 0; i < allBinaryBalls.size(); i++) {
+                allBinaryBalls.get(i).increaseVelocity();
             }
             return true;
         }
