@@ -22,7 +22,7 @@ public class LevelsDatabase {
 
     //TODO: customize the text to expalin the hint
     public final static String passwordMeaning[] = {"Congrats the password for this level is"};
-    public final static String passwords[] = {"base2","bit","byte","hexadecimal","machinecode","compile"};
+    public final static String passwords[] = {"binary","bit","byte","hexadecimal","machinelevel","compile"};
 
 
     //not neccessary

@@ -236,7 +236,7 @@ public class GameArena {
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&displayWindow ) {
                 displayWindow = false;
                 showLevelPassword();
 
