@@ -6,13 +6,13 @@ import android.view.SurfaceHolder;
 /**
  * copied from textbook needs commenting
  */
-public class BounceThread extends Thread {
+public class GameThread extends Thread {
 
     private SurfaceHolder surfaceHolder;
     private GameArena gameArena;
     private boolean isRunning;
 
-    public BounceThread(SurfaceHolder sh, GameArena gameArena) {
+    public GameThread(SurfaceHolder sh, GameArena gameArena) {
 
         isRunning = true;
         surfaceHolder = sh;
@@ -25,10 +25,8 @@ public class BounceThread extends Thread {
                 // record current time millis
                 Canvas canvas = surfaceHolder.lockCanvas();
 
-                gameArena.update(canvas.getWidth(),
-                        canvas.getHeight());
+                gameArena.update(canvas.getHeight());
                 gameArena.draw(canvas);
-                gameArena.drawPlayLabel(canvas);
                 surfaceHolder.unlockCanvasAndPost(canvas);
                 // find elapsed time
                 //Thread.sleep(100 - elapsed time maybe?);

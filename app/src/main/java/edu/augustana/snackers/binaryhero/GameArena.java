@@ -4,30 +4,13 @@ package edu.augustana.snackers.binaryhero;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.widget.Chronometer;
-import android.widget.TextView;
-
-import com.com.example.nelly.binaryhero.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.TimerTask;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 //TODO START A NEW ACTIVITY AFTER GAME OVER---NEXT_LEVEL_ACTIVITY
 
 /**
@@ -40,56 +23,61 @@ import android.widget.Button;
 public class GameArena {
     ArrayList<BinaryBall> allBinaryBalls;
 
+    //Timer related variables
 
-    boolean gameWon = false;
+
     private int threshold;//how times on/off the its rn before calling game over
     private int binaryLen;//how many binary Balls represented inside the ball
     private int numBalls;//how balls on the screen
+    private int wrongGuesses;
     private BinaryBall currentBallToFind = null;
-    boolean gameIsOver;
+    private boolean gameIsOver;
     private int mPlayerLevel;
     private Activity activity;
     private boolean isBinary;
     private long startLevelTime;
+    private boolean displayWindow;
+
 
 
     public GameArena(int level, boolean isBinary, Activity activity) {
+        //GameArenaActivity.stopTimer();
         this.activity = activity;
         this.isBinary = isBinary;
         nextLevel(level);
-
     }
-
-    public void nextLevel(int level) {
+    public synchronized void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
         mPlayerLevel = level;
-        int radius = LevelsDatabase.radius[level];
-        threshold = LevelsDatabase.threshhold[level];
+        int radius = LevelsDatabase.RADIUS[level];
+        threshold = LevelsDatabase.THRESHOLD[level];
+        wrongGuesses = 0;
 
-        binaryLen = LevelsDatabase.binaryLen[level];
-        numBalls = LevelsDatabase.numBalls[level];
+        displayWindow = true;
+        binaryLen = LevelsDatabase.BINARY_LEN[level];
+        numBalls = LevelsDatabase.NUM_BALLS[level];
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
-            int nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
-            int nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
+            int nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
+            int nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
 
             if (nextX < radius) {
                 nextX = nextX + radius;
             }
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
-                nextX = (rand.nextInt(LevelsDatabase.screenWidth)) % (LevelsDatabase.screenWidth - (radius));
-                nextY = (rand.nextInt(LevelsDatabase.screenHeight)) % (LevelsDatabase.screenHeight - (radius));
+                nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
+                nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
             }
 
-            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, this);
+            BinaryBall binaryBall = new BinaryBall(nextX, nextY, radius, generateBinary(i), i, LevelsDatabase.COLOR[0], Color.WHITE);
             allBinaryBalls.add(binaryBall);
         }
         //shuffle them balls baby
@@ -109,24 +97,24 @@ public class GameArena {
      * @param x
      * @param y
      */
-    public void findBall(float x, float y) {
+    public boolean findBall(float x, float y) {
         try {
             for (int i = 0; i < allBinaryBalls.size(); i++) {
                 BinaryBall binaryBall = allBinaryBalls.get(i);
-                float xDiff = x - allBinaryBalls.get(i).getX();
-                float yDiff = y - allBinaryBalls.get(i).getY();
-                float diameter = allBinaryBalls.get(i).getRadius() * 2;
+                float xDiff = x - binaryBall.getX();
+                float yDiff = y - binaryBall.getY();
+                float diameter = binaryBall.getRadius() * 2;
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));
+                        return true;
                     }
-
-
                 }
             }
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
 
         }
+        return false;
     }
 
     /**
@@ -134,9 +122,8 @@ public class GameArena {
      *
      * @param ball
      */
-    public void removeBall(BinaryBall ball) {
+    public synchronized void removeBall(BinaryBall ball) {
         allBinaryBalls.remove(ball);
-        Collections.shuffle(allBinaryBalls);
     }
 
     /**
@@ -165,12 +152,19 @@ public class GameArena {
     /**
      * redraw the ball to simulate the moving
      *
-     * @param width
      * @param height
      */
-    public void update(int width, int height) {
+    public synchronized void update(int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
-            allBinaryBalls.get(i).move(0, 0, width, height);
+            allBinaryBalls.get(i).move(0, height);
+            if (allBinaryBalls.get(i).getNumTimesOffScreen() >= threshold - 1) {
+                if (allBinaryBalls.get(i).getNumTimesOffScreen() == threshold) {
+                    removeBall(allBinaryBalls.get(i));
+                    gameIsOver = true;
+                } else {
+                    allBinaryBalls.get(i).setColor(LevelsDatabase.COLOR[1]);
+                }
+            }
         }
     }
 
@@ -195,14 +189,14 @@ public class GameArena {
      *
      * @param canvas
      */
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         //WIPE THE CANVAS CLEAN
         canvas.drawRGB(176, 175, 175);
         Paint paint = new Paint();
-        paint.setColor(LevelsDatabase.textColor);
+        paint.setColor(LevelsDatabase.TEXT_COLOR);
 
         if (allBinaryBalls.size() > 0) {
-            int prev;
+
             for (int i = 0; i < allBinaryBalls.size(); i++) {
 
                 //DRAW THE BALL
@@ -212,10 +206,10 @@ public class GameArena {
                 } else {
                     allBinaryBalls.get(i).draw(canvas, allBinaryBalls.get(i).getDecimalText(), isBinary);
                 }
-                //Log.d("BHERO", "x value = " + allBinaryBalls.get(i).getX());
+
             }
 
-            paint.setTextSize(50 * 2);
+            paint.setTextSize(100);
 
             if (!gameIsOver) {
                 currentBallToFind = allBinaryBalls.get(0);
@@ -225,94 +219,128 @@ public class GameArena {
                 } else {
                     canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
                 }
-                long elapsedTime = System.currentTimeMillis() - startLevelTime;
-                canvas.drawText("Time " + elapsedTime, 100, 400, paint);
-
             } else {
-               // GameArenaActivity.stopTimer();
+                // GameArenaActivity.stopTimer();
+                if(displayWindow) {
+                    displayWindow = false;
+                    showGameOver();
+                }
                 currentBallToFind = null;
-                canvas.drawText("GAME OVER!", 10, 300, paint);
 
-                mPlayerLevel = -1;//THE CALL TO START LEVEL IS A PRE-INCREMENT
             }
         } else {
-            long finishTime = System.currentTimeMillis() - startLevelTime;
+            //long finishTime = System.currentTimeMillis();
             paint.setTextSize(50);
-            Log.d("Your Time", ": " + finishTime);
-
-
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(activity.getBaseContext());
-//            builder.setMessage("Your time: " + finishTime)
-//                    .setCancelable(false)
-//                    .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//            AlertDialog alert = builder.create();
-//            alert.show();
-
-
-
-
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < 5) {
-                nextLevel(mPlayerLevel + 1);
-            } else {
+            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&displayWindow ) {
+                displayWindow = false;
                 showLevelPassword();
-                canvas.drawText("YOU FINISHED GAME", 20, 300, paint);
+
+            } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+                displayWindow = false;
+               showEndGame();
             }
         }
 
     }
 
-    public void drawPlayLabel(Canvas canvas) {
-
+    /**
+     * Increases binary ball velocity for every nth wrong guess.
+     *
+     * @return if velocity was increased
+     */
+    public boolean increaseBallVelocity() {
+        int n = 5;
+        if (wrongGuesses % n == 0) {
+            for (int i = 0; i < allBinaryBalls.size(); i++) {
+                allBinaryBalls.get(i).increaseVelocity();
+            }
+            return true;
+        }
+        return false;
     }
 
-    public void gameWon(){
-        gameWon = true;
-
-
-        //GameArenaActivity.gameWon();
-
-
+    /**
+     * Increments the counter which tracks the number of incorrect guesses.
+     */
+    public void increaseWrongGuessCount() {
+        wrongGuesses++;
     }
-
 
     public void showLevelPassword() {
+        final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("PASSWORD");
+                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds");
+                helpBuilder.setPositiveButton("GOT IT!",
+                        new DialogInterface.OnClickListener() {
 
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this.activity);
-        helpBuilder.setTitle("Password");
-        helpBuilder.setMessage("Congrats the password for this level is" + LevelsDatabase.passwords[mPlayerLevel]);
-        helpBuilder.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                nextLevel(mPlayerLevel + 1);
+                            }
+                        });
 
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                    }
-                });
+                // Remember, create doesn't show the dialog
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
 
-        // Remember, create doesn't show the dialog
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
     }
-//
-//    public static void startTimer(){
-//
-//        chronometer.start();
-//
-//    }
-//    public static void stopTimer(){
-//        chronometer.stop();
-//
-//    }
 
+    public void showEndGame() {
 
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("CONGRATULATIONS");
+                helpBuilder.setMessage("YOU ARE THE NEW BINARY HERO");
+                helpBuilder.setPositiveButton("THANK YOU",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                activity.finish();
+                            }
+
+                        });
+
+                // Remember, create doesn't show the dialog
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
+    }
+
+    public void showGameOver() {
+
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
+                helpBuilder.setTitle("GAME OVER")
+                        .setMessage("CONTINUE")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                nextLevel(mPlayerLevel);
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {(activity).finish();
+
+                            }
+                        });
+
+                AlertDialog helpDialog = helpBuilder.create();
+                helpDialog.show();
+            }
+        });
+    }
 
 }
