@@ -15,19 +15,14 @@ public class GameArenaActivity extends AppCompatActivity {
 
     public static final String PLAYER_LEVEL_EXTRA = "PLAYER_LEVEL";
     public static final String GAME_MODE_EXTRA = "GAME_MODE";
-    long startTime;
-    long endTime;
-    long duration;
 
     private MediaPlayer mediaPlayer;
 
-    //public Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_arena);
-        // startTimer();
-        startTime = System.nanoTime();
+
 
         // REFERENCE THE FRAMELAYOUT ELEMENT
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
@@ -59,17 +54,7 @@ public class GameArenaActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
-    public long gameWon() {
-        endTime = System.nanoTime();
-        duration = (endTime - startTime);
 
-
-        //call popup window, pass in duration
-        return duration;
-
-
-
-    }
     @Override
     protected void onDestroy() {
         if (mediaPlayer.isPlaying() || mediaPlayer.isLooping()) {
@@ -81,21 +66,6 @@ public class GameArenaActivity extends AppCompatActivity {
 
 
 }
-
-//    public void startTimer(){
-//
-//        chronometer.start();
-//
-//    }
-//    public  void stopTimer(){
-//        chronometer.stop();
-//
-//    }
-
-
-
-
-
 
     //disabling the back button
 //@Override

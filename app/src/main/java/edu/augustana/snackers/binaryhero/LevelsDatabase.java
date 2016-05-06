@@ -24,12 +24,28 @@ public class LevelsDatabase {
     public final static String passwordMeaning[] = {"Congrats the password for this level is"};
     public final static String passwords[] = {"binary","bit","byte","decimal","hexadecimal","compile"};
 
+    public static long[] hiScores = {99999,99999,99999,99999,99999,99999};
+
+        public static void updateScore(int level, long finishTime){
+            if(hiScores[level] > finishTime){
+                hiScores[level] = finishTime;
+            }
+
+        }
+        public static long getLevelScore(int level){
+            return hiScores[level];
+        }
+
+//    public static int[] getPassword() {
+//    }
+
+        }
 
     //not neccessary
-   /* public static int[] getPassword(){
-        return passwords;
-    }
+   // public static int[] getPassword(){
+       // return passwords;
+    //}
     //public static int passwordsBase10[] = {378,234,721,346,498,352};
-    */
-    }
+
+    //}
 
