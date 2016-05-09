@@ -62,7 +62,7 @@ public class GameArena {
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
             int nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-            int nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
+            int nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
 
             if (nextX < radius) {
                 nextX = nextX + radius;
@@ -70,7 +70,7 @@ public class GameArena {
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
                 nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-                nextY = (rand.nextInt(LevelsDatabase.SCREEN_HEIGHT)) % (LevelsDatabase.SCREEN_HEIGHT - (radius));
+                nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
