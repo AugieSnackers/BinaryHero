@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
  */
 public class LevelsDatabase {
     public final static int HIGHEST_LEVEL = 6;
-    public final static int RADIUS[] = { 50,50,50,50,60,60,60};
+    public final static int RADIUS[] = { 50,50,50,50,70,70,70};
     public final static int NUM_BALLS[] = { 4,8,16,16,32,32,32};
     public final static int BINARY_LEN[] = { 4,4,4,4,5,5,5};
     public final static int THRESHOLD[] = { 2,2,4,4,6,6,6};
@@ -22,14 +22,30 @@ public class LevelsDatabase {
 
     //TODO: customize the text to expalin the hint
     public final static String passwordMeaning[] = {"Congrats the password for this level is"};
-    public final static String passwords[] = {"base2","bit","byte","hexadecimal","machinecode","compile"};
+    public final static String passwords[] = {"binary","bit","byte","decimal","hexadecimal","compile"};
 
+    public static long[] hiScores = {99999,99999,99999,99999,99999,99999};
+
+        public static void updateScore(int level, long finishTime){
+            if(hiScores[level] > finishTime){
+                hiScores[level] = finishTime;
+            }
+
+        }
+        public static long getLevelScore(int level){
+            return hiScores[level];
+        }
+
+//    public static int[] getPassword() {
+//    }
+
+        }
 
     //not neccessary
-   /* public static int[] getPassword(){
-        return passwords;
-    }
+   // public static int[] getPassword(){
+       // return passwords;
+    //}
     //public static int passwordsBase10[] = {378,234,721,346,498,352};
-    */
-    }
+
+    //}
 

@@ -1,11 +1,8 @@
 package edu.augustana.snackers.binaryhero;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
-
-import java.util.logging.Level;
 
 /**
  * This class contains the BinaryBall object
@@ -28,14 +25,9 @@ public class BinaryBall {
     public BinaryBall(int posX, int posY, int rad, String text, int decimalValue, int primaryColor, int textColor) {
         x = posX;
         y = posY;
-        radius = rad;
-        if (LevelsDatabase.SCREEN_HEIGHT < 1000) {
-            velY = 1;
-            radius = rad;
-        } else {
-            velY = 2;
-            radius = rad * 3 / 2;
-        }
+        //devices have different resoulution
+        velY =  Math.round(LevelsDatabase.SCREEN_HEIGHT / 800);
+        radius = rad + 10 * (velY);
 
         //LevelsDatabase.SCREEN_HEIGHT/600;
         //TODO: Eventually clear out all DEBUG logging code
@@ -71,7 +63,7 @@ public class BinaryBall {
     }
 
     public void draw(Canvas canvas, String text, boolean binaryMode) {
-    //TODO MAKE THE  BALLS BETTER LOOKING
+        //TODO MAKE THE  BALLS BETTER LOOKING
         Paint paint = new Paint();
         paint.setColor(primaryColor);
         // TODO: Fade out BinaryBalls as they approach the screen bottom using paint.setAlpha()
@@ -79,7 +71,11 @@ public class BinaryBall {
         canvas.drawCircle(x, y, radius, paint);
         paint.setColor(textColor);
         if (binaryMode) {
-            paint.setTextSize(radius - 10);
+            if(text.length()>4){
+                paint.setTextSize(radius-30);
+            }else{
+                paint.setTextSize(radius - 10);
+            }
             canvas.drawText(text, (x - radius) + 5, y + (radius / 2) - 5, paint);
         } else {
             paint.setTextSize((radius * 3) / 2);

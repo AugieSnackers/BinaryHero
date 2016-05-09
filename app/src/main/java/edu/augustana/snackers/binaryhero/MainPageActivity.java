@@ -1,5 +1,7 @@
 package edu.augustana.snackers.binaryhero;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -45,6 +47,9 @@ public class MainPageActivity extends AppCompatActivity {
                         }
                     }
 
+
+
+
                 }
 
                 //passwordLevel is started at 0 if no correct password
@@ -53,7 +58,6 @@ public class MainPageActivity extends AppCompatActivity {
                 extras.putBoolean(GameArenaActivity.GAME_MODE_EXTRA, baseSwitch.isChecked());
                 intent.putExtras(extras);
                 startActivity(intent);
-                passWordText.setText("");//reset the password edit text
 
             }
         });

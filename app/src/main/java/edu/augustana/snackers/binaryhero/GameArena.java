@@ -41,7 +41,6 @@ public class GameArena {
 
 
     public GameArena(int level, boolean isBinary, Activity activity) {
-        //GameArenaActivity.stopTimer();
         this.activity = activity;
         this.isBinary = isBinary;
         nextLevel(level);
@@ -231,12 +230,14 @@ public class GameArena {
         } else {
             //long finishTime = System.currentTimeMillis();
             paint.setTextSize(50);
+            //Log.d("Your Time", ": " + finishTime);
+            //LevelsDatabase.updateScore(mPlayerLevel, finishTime);
 
             //canvas.drawText("YOU WON THIS ROUND", 20, 300, paint);
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&displayWindow ) {
                 displayWindow = false;
                 showLevelPassword();
 
@@ -273,11 +274,13 @@ public class GameArena {
 
     public void showLevelPassword() {
         final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;
+        LevelsDatabase.updateScore(mPlayerLevel, elapsedTime);
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
                 helpBuilder.setTitle("PASSWORD");
-                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds");
+                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds"
+                + "\nThe high score is: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds");
                 helpBuilder.setPositiveButton("GOT IT!",
                         new DialogInterface.OnClickListener() {
 
