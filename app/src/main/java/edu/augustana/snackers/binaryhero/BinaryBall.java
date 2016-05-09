@@ -74,6 +74,8 @@ public class BinaryBall {
     //TODO MAKE THE  BALLS BETTER LOOKING
         Paint paint = new Paint();
         paint.setColor(primaryColor);
+        // TODO: Fade out BinaryBalls as they approach the screen bottom using paint.setAlpha()
+        // Max value for setAlpha appears to be 255
         canvas.drawCircle(x, y, radius, paint);
         paint.setColor(textColor);
         if (binaryMode) {
