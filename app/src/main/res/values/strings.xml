@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Binary Hero</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="tutorial">Tutorial</string>
+    <string name="about">About App</string>
 </resources>
