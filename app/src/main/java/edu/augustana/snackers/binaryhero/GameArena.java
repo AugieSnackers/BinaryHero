@@ -37,6 +37,7 @@ public class GameArena {
     private boolean isBinary;
     private long startLevelTime;
     private boolean displayWindow;
+    private int ballSpawnPoint;
 
 
 
@@ -59,18 +60,20 @@ public class GameArena {
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
+        int distanceOffScreen = 0;
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
             int nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-            int nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
+            int nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + distanceOffScreen) - distanceOffScreen;
 
             if (nextX < radius) {
                 nextX = nextX + radius;
             }
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
+                distanceOffScreen += 25;
                 nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-                nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
+                nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + distanceOffScreen) - distanceOffScreen;
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
@@ -82,6 +85,8 @@ public class GameArena {
         //shuffle them balls baby
         Collections.shuffle(allBinaryBalls);
         startLevelTime = System.currentTimeMillis();
+
+        ballSpawnPoint = -distanceOffScreen;
     }
 
 
@@ -155,7 +160,8 @@ public class GameArena {
      */
     public synchronized void update(int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
-            allBinaryBalls.get(i).move(0, height);
+            int ballRadius = (int)allBinaryBalls.get(i).getRadius();
+            allBinaryBalls.get(i).move(ballSpawnPoint, height + ballRadius);
             if (allBinaryBalls.get(i).getNumTimesOffScreen() >= threshold - 1) {
                 if (allBinaryBalls.get(i).getNumTimesOffScreen() == threshold) {
                     removeBall(allBinaryBalls.get(i));

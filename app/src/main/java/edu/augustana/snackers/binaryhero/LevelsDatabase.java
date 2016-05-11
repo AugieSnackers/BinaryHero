@@ -12,7 +12,7 @@ public class LevelsDatabase {
     public final static int RADIUS[] = { 50,50,50,50,70,70,70};
     public final static int NUM_BALLS[] = { 4,8,16,16,32,32,32};
     public final static int BINARY_LEN[] = { 4,4,4,4,5,5,5};
-    public final static int THRESHOLD[] = { 2,2,4,4,6,6,6};
+    public final static int THRESHOLD[] = { 3,3,5,6,7,10,15};
 
     public final static int COLOR[] ={Color.BLACK,Color.RED};
     public final static int TEXT_COLOR = Color.CYAN;
@@ -22,7 +22,7 @@ public class LevelsDatabase {
 
     //TODO: customize the text to expalin the hint
     public final static String passwordMeaning[] = {"Congrats the password for this level is"};
-    public final static String passwords[] = {"binary","bit","byte","decimal","hexadecimal","compile"};
+    public final static String passwords[] = {"base2", "binary","bit","byte","decimal","hexadecimal","compile"};
 
     public static long[] hiScores = {99999,99999,99999,99999,99999,99999};
 

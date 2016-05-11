@@ -40,23 +40,17 @@ public class MainPageActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 assert passWordText != null;
-
-                if(!isEmpty(passWordText)){
-                    // TODO: Fix problem loading level by password for higher levels
-                    for(int i = 0 ; i < LevelsDatabase.passwords.length; i++){
-                        if(LevelsDatabase.passwords[i].equals(passWordText.getText().toString())){
-                            passwordLevel = i+1;
+                passwordLevel = 0;
+                if(!isEmpty(passWordText)) {
+                    for (int i = 0; i < LevelsDatabase.passwords.length; i++) {
+                        if (LevelsDatabase.passwords[i].equals(passWordText.getText().toString())) {
+                            passwordLevel = i;
+                            break;
                         }
                     }
-
-
-
-
                 }
 
-                //passwordLevel is started at 0 if no correct password
-                //does this work?  need start level method normal start was at 0
-                extras.putInt(GameArenaActivity.PLAYER_LEVEL_EXTRA, passwordLevel);
+                 extras.putInt(GameArenaActivity.PLAYER_LEVEL_EXTRA, passwordLevel);
                 extras.putBoolean(GameArenaActivity.GAME_MODE_EXTRA, baseSwitch.isChecked());
                 intent.putExtras(extras);
                 startActivity(intent);

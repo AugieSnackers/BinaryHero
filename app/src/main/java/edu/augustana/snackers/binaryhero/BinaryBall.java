@@ -40,14 +40,14 @@ public class BinaryBall {
         this.textColor = textColor;
     }
 
-    public void move(int topWall, int bottomWall) {
+    public void move(int topBound, int bottomBound) {
         //MOVE BALL
         y += velY;
 
 
         //checks if balls reaching the bottom and what to do with it
-        if (y > bottomWall) {
-            y = topWall;
+        if (y > bottomBound) {
+            y = topBound;
             numTimesOffScreen++;
             //velY *= REVERSE;
         }
