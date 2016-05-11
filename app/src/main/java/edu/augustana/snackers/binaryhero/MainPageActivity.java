@@ -31,6 +31,7 @@ public class MainPageActivity extends AppCompatActivity {
         myTypeface = Typeface.createFromAsset(getAssets(), "Sansation-Regular.ttf");
 
         Button startBtn = (Button) findViewById(R.id.start_btn);
+        EditText passWordTextFont = (EditText) findViewById(R.id.password_Field);
 
         assert startBtn != null;
         startBtn.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +40,6 @@ public class MainPageActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 EditText passWordText = (EditText) findViewById(R.id.password_Field);
                 assert passWordText != null;
-                passWordText.setTypeface(myTypeface);
 
                 if(!isEmpty(passWordText)){
                     // TODO: Fix problem loading level by password for higher levels
@@ -76,6 +76,7 @@ public class MainPageActivity extends AppCompatActivity {
 
         startBtn.setTypeface(myTypeface);
         baseSwitch.setTypeface(myTypeface);
+        passWordTextFont.setTypeface(myTypeface);
 
     }
 
