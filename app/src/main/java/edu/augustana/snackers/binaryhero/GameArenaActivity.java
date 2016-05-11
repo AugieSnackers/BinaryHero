@@ -106,15 +106,6 @@ public class GameArenaActivity extends AppCompatActivity {
 
 }
 
-    //disabling the back button
-//@Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            GameArena.clearHistory();
-//            onBackPressed();
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
 
 

@@ -48,10 +48,6 @@ public class MainPageActivity extends AppCompatActivity {
                             passwordLevel = i+1;
                         }
                     }
-
-
-
-
                 }
 
                 //passwordLevel is started at 0 if no correct password
