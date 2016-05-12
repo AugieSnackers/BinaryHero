@@ -51,10 +51,10 @@ public class GameArenaActivity extends AppCompatActivity {
                 float x = event.getX();
                 float y = event.getY();
                 if (gameArena.findBall(x, y)) {
-                    soundPool.play(soundIdDestroyedBall, 0.99f, 0.99f, 1, 0, 1f);
+                    soundPool.play(soundIdDestroyedBall, 0.85f, 0.85f, 1, 0, 1f);
                 } else {
                     gameArena.increaseWrongGuessCount();
-                    // TODO: Play sound effect (like an alarming beep or something)
+                    soundPool.play(soundIdWrongBall, 0.5f, 0.5f, 1, 0, 1f);
                     if (gameArena.increaseBallVelocity()) {
                         // TODO: Play a 'whoosh' or siren or alarm sound effect to indicate speed increase
                     }
