@@ -38,6 +38,7 @@ public class GameArena {
     private long startLevelTime;
     private boolean displayWindow;
     private int ballSpawnPoint;
+    private int ballsToClear;
 
 
 
@@ -86,7 +87,8 @@ public class GameArena {
         Collections.shuffle(allBinaryBalls);
         startLevelTime = System.currentTimeMillis();
 
-        ballSpawnPoint = -distanceOffScreen;
+        ballSpawnPoint = -(distanceOffScreen + radius);
+        ballsToClear = allBinaryBalls.size();
     }
 
 
@@ -111,6 +113,7 @@ public class GameArena {
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));
+                        ballsToClear--;
                         return true;
                     }
                 }
@@ -243,13 +246,19 @@ public class GameArena {
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&displayWindow ) {
-                displayWindow = false;
-                showLevelPassword();
+            if (ballsToClear == 0) {
+                if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL && displayWindow) {
+                    displayWindow = false;
+                    showLevelPassword();
 
-            } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+                } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL && displayWindow) {
+                    displayWindow = false;
+                    showEndGame();
+                }
+            } else if (displayWindow){
+                currentBallToFind = null;
                 displayWindow = false;
-               showEndGame();
+                showGameOver();
             }
         }
 
