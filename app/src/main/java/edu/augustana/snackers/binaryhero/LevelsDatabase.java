@@ -26,12 +26,24 @@ public class LevelsDatabase {
 
     public static long[] hiScores = {99999,99999,99999,99999,99999,99999};
 
+
+    /**
+     * calculates the score the user earned during their round
+     * @param level integer that shows what level the user is on
+     * @param finishTime long integer value that shows how long it took user to finish game
+     */
         public static void updateScore(int level, long finishTime){
             if(hiScores[level] > finishTime){
                 hiScores[level] = finishTime;
             }
 
         }
+
+    /**
+     * getter method that returns the score the user earned
+     * @param level integer that shows level
+     * @return array hiScores at the level parameter 
+     */
         public static long getLevelScore(int level){
             return hiScores[level];
         }

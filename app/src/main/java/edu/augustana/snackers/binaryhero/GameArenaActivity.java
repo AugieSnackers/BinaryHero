@@ -69,6 +69,10 @@ public class GameArenaActivity extends AppCompatActivity {
 
     // user3833732
     // http://stackoverflow.com/questions/17069955/play-sound-using-soundpool-example
+
+    /**
+     * makes music for game
+     */
     protected void createSoundPool() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             createNewSoundPool();
