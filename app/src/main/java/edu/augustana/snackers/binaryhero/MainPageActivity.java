@@ -13,10 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.EditText;
 
 import com.com.example.nelly.binaryhero.R;
+
+import org.w3c.dom.Text;
 
 
 public class MainPageActivity extends AppCompatActivity {
@@ -155,13 +158,25 @@ public class MainPageActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         popupViewAbout = layoutInflater.inflate(R.layout.activity_about, null);
         popupWindowAbout = new PopupWindow(popupViewAbout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        popupWindowAbout.showAtLocation(frameLayout, Gravity.NO_GRAVITY, 500, 500);
+        popupWindowAbout.showAtLocation(frameLayout, Gravity.CENTER, 0, 0);
 
-        popupViewAbout.setOnTouchListener(new View.OnTouchListener() {
+        TextView teamName = (TextView) popupViewAbout.findViewById(R.id.aboutTextView0);
+        teamName.setTypeface(myTypeface);
+        TextView teamMembers = (TextView) popupViewAbout.findViewById(R.id.aboutTextView1);
+        teamMembers.setTypeface(myTypeface);
+        TextView graphicsTV = (TextView) popupViewAbout.findViewById(R.id.graphics);
+        graphicsTV.setTypeface(myTypeface);
+        TextView musicTV = (TextView) popupViewAbout.findViewById(R.id.music);
+        musicTV.setTypeface(myTypeface);
+        TextView soundTV = (TextView) popupViewAbout.findViewById(R.id.sound);
+        soundTV.setTypeface(myTypeface);
+        Button closeButton = (Button) popupViewAbout.findViewById(R.id.buttonAbout);
+        closeButton.setTypeface(myTypeface);
+        closeButton.setBackgroundColor(0xFF000000);
+        closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public void onClick(View v) {
                 popupWindowAbout.dismiss();
-                return true;
             }
         });
     }
