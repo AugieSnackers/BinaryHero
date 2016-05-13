@@ -309,7 +309,7 @@ public class GameArena {
                 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
                 helpBuilder.setTitle("PASSWORD");
                 helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds"
-                + "\nThe high score is: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds");
+                + "\nThe fastest time: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds");
                 helpBuilder.setPositiveButton("GOT IT!",
                         new DialogInterface.OnClickListener() {
 

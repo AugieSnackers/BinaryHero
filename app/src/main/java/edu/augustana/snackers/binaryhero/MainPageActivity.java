@@ -67,15 +67,6 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
 
-//        Button settingBtn = (Button) findViewById(R.id.settings_btn);
-//        assert settingBtn != null;
-//        settingBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View btn) {
-//                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
         startBtn.setTypeface(myTypeface);
         baseSwitch.setTypeface(myTypeface);
         passWordTextFont.setTypeface(myTypeface);
