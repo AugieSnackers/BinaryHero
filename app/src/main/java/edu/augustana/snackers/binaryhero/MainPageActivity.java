@@ -124,7 +124,6 @@ public class MainPageActivity extends AppCompatActivity {
         Button closeButton = (Button) popupViewTut.findViewById(R.id.buttonTut);
         closeButton.setTypeface(myTypeface);
         closeButton.setBackgroundColor(0xFF000000);
-        assert closeButton != null;
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,11 +135,11 @@ public class MainPageActivity extends AppCompatActivity {
     private void showAboutPage() {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout2);
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        popupViewTut = layoutInflater.inflate(R.layout.activity_about, null);
-        popupWindowAbout = new PopupWindow(popupViewTut, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        popupViewAbout = layoutInflater.inflate(R.layout.activity_about, null);
+        popupWindowAbout = new PopupWindow(popupViewAbout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         popupWindowAbout.showAtLocation(frameLayout, Gravity.NO_GRAVITY, 500, 500);
 
-        popupViewTut.setOnTouchListener(new View.OnTouchListener() {
+        popupViewAbout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 popupWindowAbout.dismiss();
