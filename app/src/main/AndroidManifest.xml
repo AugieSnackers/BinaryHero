@@ -20,7 +20,9 @@
         <activity
             android:name="edu.augustana.snackers.binaryhero.GameArenaActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="edu.augustana.snackers.binaryhero.SettingsActivity" />
+        <activity
+            android:name="edu.augustana.snackers.binaryhero.SettingsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

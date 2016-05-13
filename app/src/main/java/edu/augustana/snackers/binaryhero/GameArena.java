@@ -223,9 +223,9 @@ public class GameArena {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
                 if (isBinary) {
-                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 60, 600, paint);
                 } else {
-                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 60, 600, paint);
                 }
             } else {
                 // GameArenaActivity.stopTimer();
@@ -256,9 +256,9 @@ public class GameArena {
                     showEndGame();
                 }
             } else if (displayWindow){
-                currentBallToFind = null;
                 displayWindow = false;
                 showGameOver();
+                currentBallToFind = null;
             }
         }
 
