@@ -137,7 +137,7 @@ public class BinaryBall {
 
 
     /**
-     *
+     *@returns string representation of base 10 decimal value
      */
     public String getDecimalText() {
         if (decimalValue < 10) {
