@@ -2,12 +2,12 @@
     <string name="app_name">Binary Hero</string>
     <string name="tutorial">Tutorial</string>
     <string name="about">About App</string>
-    <string name="tutorial_content">In binary you only count with 0's and 1's!
+    <string name="tutorial_content">In binary you only count with 0s and 1s!
         We start at 0, and then next is 1 however there is no 2.  Instead we
         now count to 10.  The far right number stands for 1, the number to the
-        left of that stands for 2, then 4, then 8, 16, 32 and so on.  So counting to 6
+        left of that stands for 2, then 4 (2^2), then 8 (2^3), 16 (2^4), 32(2^5) and so on.  So counting to 6
         would look like 0, 1, 10, 11, 100, 101, 110.  5 is 101 because the left most 1
-        represents a 4, the 2's place is empty, and then the ones place has a 1 so
-        you add 1 + 4 to get 5.  With 6 the 4's place and the 2's place are both occupied
-        by 1's so we add 4 + 2 = 6.  </string>
+        represents a 4 (2^2), the 2s place is empty, and then the ones place has a 1(2^0) so
+        you add 1 + 4 to get 5 or 2^0 + 2^2.  With 6 the 4s place and the 2s place are both occupied
+        by 1s so we add 4 + 2 = 6 or 2^2 + 2^1.  </string>
 </resources>

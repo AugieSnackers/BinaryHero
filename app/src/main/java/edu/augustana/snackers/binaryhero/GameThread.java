@@ -12,6 +12,12 @@ public class GameThread extends Thread {
     private GameArena gameArena;
     private boolean isRunning;
 
+
+    /**
+     * constructor method for GameThread class
+     * @param sh SurfaceHolder
+     * @param gameArena GameArena
+     */
     public GameThread(SurfaceHolder sh, GameArena gameArena) {
 
         isRunning = true;
@@ -19,6 +25,10 @@ public class GameThread extends Thread {
         this.gameArena = gameArena;
     }
 
+
+    /**
+     *
+     */
     public void run() {
         try {
             while (isRunning) {

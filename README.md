@@ -8,7 +8,7 @@ Binary Hero works when a player hits start by checking what the toggle button is
 entered a password, and if they did if that password matches any passwords in the array list of passwords, if it does then a new 
 game is called with the corresponding password level.  If no password is entered then a new game is started at level 0.  
 
--Kaylee - creation of graphics, creating and implementing password system, layout design 
+-Kaylee - creation of graphics, creating and implementing password system, layout design, tutorial  
 -Alex - creation of graphics, layout design, implementing new fonts, toolbar addition, logo work 
 -Nellie - 
 -Chris - 
