@@ -80,6 +80,11 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * checks if the user entered in a password or not
+     * @param passwordText EditText that is the text in the password text field
+     * @return boolean value false if there is text entered in and false is not
+     */
         public boolean isEmpty(EditText passwordText){
             if(passwordText.getText().toString().trim().length() > 0) {
                 return false;
@@ -95,6 +100,12 @@ public class MainPageActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * shows tutorial or about page if user clicks on them
+     * @param item MenuItem that holds the information about what the user clicked
+     * @return item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -115,6 +126,10 @@ public class MainPageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * calls activity_tutorial layout to show the text explaining how to play the game
+     */
     private void showTutorial() {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout2);
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -132,6 +147,9 @@ public class MainPageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * calls activity_about layout to show the about page
+     */
     private void showAboutPage() {
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frameLayout2);
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);

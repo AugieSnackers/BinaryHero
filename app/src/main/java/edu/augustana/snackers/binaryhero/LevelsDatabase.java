@@ -42,7 +42,7 @@ public class LevelsDatabase {
     /**
      * getter method that returns the score the user earned
      * @param level integer that shows level
-     * @return array hiScores at the level parameter 
+     * @return array hiScores at the level parameter
      */
         public static long getLevelScore(int level){
             return hiScores[level];
