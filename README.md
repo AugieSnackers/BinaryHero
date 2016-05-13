@@ -14,7 +14,7 @@ Binary Hero works when a player hits start by checking what the toggle button is
  
   
 Kaylee - creation of graphics, creating and implementing password system, layout design 
-Alex - creation of graphics, layout design, implementing new fonts, toolbar addition 
+Alex - creation of graphics, layout design, implementing new fonts, toolbar addition, logo work 
 Nellie - 
 Chris - 
 Scott - 
