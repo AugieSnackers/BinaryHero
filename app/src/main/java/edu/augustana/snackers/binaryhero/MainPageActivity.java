@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -19,13 +18,11 @@ import android.widget.EditText;
 
 import com.com.example.nelly.binaryhero.R;
 
-import org.w3c.dom.Text;
-
 
 public class MainPageActivity extends AppCompatActivity {
 
     private ToggleButton baseSwitch;
-    private Typeface myTypeface;
+    private Typeface sansationFont;
     private int passwordLevel = 0;
     private View popupViewTut, popupViewAbout;
     private PopupWindow popupWindowTut, popupWindowAbout;
@@ -36,7 +33,7 @@ public class MainPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         baseSwitch = (ToggleButton) findViewById(R.id.toggleButton);
-        myTypeface = Typeface.createFromAsset(getAssets(), "Sansation-Regular.ttf");
+        sansationFont = Typeface.createFromAsset(getAssets(), "Sansation-Regular.ttf");
 
         Button startBtn = (Button) findViewById(R.id.start_btn);
         EditText passWordTextFont = (EditText) findViewById(R.id.password_Field);
@@ -67,9 +64,9 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
 
-        startBtn.setTypeface(myTypeface);
-        baseSwitch.setTypeface(myTypeface);
-        passWordTextFont.setTypeface(myTypeface);
+        startBtn.setTypeface(sansationFont);
+        baseSwitch.setTypeface(sansationFont);
+        passWordTextFont.setTypeface(sansationFont);
 
     }
 
@@ -130,8 +127,12 @@ public class MainPageActivity extends AppCompatActivity {
         popupViewTut = layoutInflater.inflate(R.layout.activity_tutorial, null);
         popupWindowTut = new PopupWindow(popupViewTut, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         popupWindowTut.showAtLocation(frameLayout, Gravity.CENTER, 0, 0);
+
+        TextView tutorial = (TextView)popupViewTut.findViewById(R.id.textViewTut0);
+        tutorial.setTypeface(sansationFont);
+
         Button closeButton = (Button) popupViewTut.findViewById(R.id.buttonTut);
-        closeButton.setTypeface(myTypeface);
+        closeButton.setTypeface(sansationFont);
         closeButton.setBackgroundColor(0xFF000000);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,17 +153,17 @@ public class MainPageActivity extends AppCompatActivity {
         popupWindowAbout.showAtLocation(frameLayout, Gravity.CENTER, 0, 0);
 
         TextView teamName = (TextView) popupViewAbout.findViewById(R.id.aboutTextView0);
-        teamName.setTypeface(myTypeface);
+        teamName.setTypeface(sansationFont);
         TextView teamMembers = (TextView) popupViewAbout.findViewById(R.id.aboutTextView1);
-        teamMembers.setTypeface(myTypeface);
+        teamMembers.setTypeface(sansationFont);
         TextView graphicsTV = (TextView) popupViewAbout.findViewById(R.id.graphics);
-        graphicsTV.setTypeface(myTypeface);
+        graphicsTV.setTypeface(sansationFont);
         TextView musicTV = (TextView) popupViewAbout.findViewById(R.id.music);
-        musicTV.setTypeface(myTypeface);
+        musicTV.setTypeface(sansationFont);
         TextView soundTV = (TextView) popupViewAbout.findViewById(R.id.sound);
-        soundTV.setTypeface(myTypeface);
+        soundTV.setTypeface(sansationFont);
         Button closeButton = (Button) popupViewAbout.findViewById(R.id.buttonAbout);
-        closeButton.setTypeface(myTypeface);
+        closeButton.setTypeface(sansationFont);
         closeButton.setBackgroundColor(0xFF000000);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override

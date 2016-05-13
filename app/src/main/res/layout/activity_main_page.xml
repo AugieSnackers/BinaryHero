@@ -37,7 +37,8 @@
         android:textColor="#fefdfd"
         android:textSize="30sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <ToggleButton
         android:layout_width="201dp"
@@ -51,7 +52,8 @@
         android:layout_gravity="center_horizontal|bottom"
         android:checked="true"
         android:layout_above="@+id/settings_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
     <EditText
 

@@ -219,7 +219,7 @@ public class GameArena {
 
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         int density = (int)metrics.density;
-        int x = metrics.widthPixels / 2 - 150;
+        int x = metrics.widthPixels / 2;
         int y = metrics.heightPixels - density * 100;
 
 
@@ -243,9 +243,9 @@ public class GameArena {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
                 if (isBinary) {
-                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), x, y, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), x - 150, y, paint);
                 } else {
-                    canvas.drawText("FIND " + currentBallToFind.getBinary(), x, y, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getBinary(), x - 225, y, paint);
                 }
             } else {
                 // GameArenaActivity.stopTimer();
