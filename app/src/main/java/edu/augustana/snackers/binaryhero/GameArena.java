@@ -4,9 +4,12 @@ package edu.augustana.snackers.binaryhero;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -212,6 +215,12 @@ public class GameArena {
         Paint paint = new Paint();
         paint.setColor(LevelsDatabase.TEXT_COLOR);
 
+
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        int x = metrics.widthPixels / 2 - 150;
+        int y = metrics.heightPixels - 400;
+
+
         if (allBinaryBalls.size() > 0) {
 
             for (int i = 0; i < allBinaryBalls.size(); i++) {
@@ -232,9 +241,9 @@ public class GameArena {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
                 if (isBinary) {
-                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 60, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), x, y, paint);
                 } else {
-                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 60, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getBinary(), x, y, paint);
                 }
             } else {
                 // GameArenaActivity.stopTimer();

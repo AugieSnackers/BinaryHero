@@ -15,12 +15,12 @@ public class LevelsDatabase {
     public final static int THRESHOLD[] = { 3,3,5,6,7,10,15};
 
     public final static int COLOR[] ={Color.BLACK,Color.RED};
-    public final static int TEXT_COLOR = Color.CYAN;
+    public final static int TEXT_COLOR = Color.parseColor( "#a32120");
     public final static DisplayMetrics METRICS = Resources.getSystem().getDisplayMetrics();
     public final static int SCREEN_WIDTH = METRICS.widthPixels;
     public final static int SCREEN_HEIGHT = METRICS.heightPixels;
 
-    //TODO: customize the text to expalin the hint
+    //TODO: customize the text to explain the hint
     public final static String passwordMeaning[] = {"Congrats the password for this level is"};
     public final static String passwords[] = {"base2", "binary","bit","byte","decimal","hexadecimal","compile"};
 
