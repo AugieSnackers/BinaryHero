@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/scrollViewTut0"
     android:fillViewport="false"
-    android:background="@color/theme_window_background">
+    android:background="#b3afaf">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:textSize="30sp"
             android:textAlignment="center"
             android:autoText="true"
-            android:background="@color/theme_window_background" />
+            android:background="#b3afaf" />
 
         <Button
             android:id="@+id/buttonTut"
