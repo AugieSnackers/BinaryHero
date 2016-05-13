@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 
 import java.util.ArrayList;
@@ -217,8 +218,9 @@ public class GameArena {
 
 
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        int density = (int)metrics.density;
         int x = metrics.widthPixels / 2 - 150;
-        int y = metrics.heightPixels - 400;
+        int y = metrics.heightPixels - density * 100;
 
 
         if (allBinaryBalls.size() > 0) {
