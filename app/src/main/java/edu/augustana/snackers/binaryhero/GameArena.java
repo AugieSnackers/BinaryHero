@@ -47,6 +47,13 @@ public class GameArena {
         this.isBinary = isBinary;
         nextLevel(level);
     }
+
+    /**
+     * sets values for attributes pertaining to next level. Makes new array list of Binary Balls
+     *      and places all the balls on the screeen and makes sure they are not stacked on top of
+     *      each other or off of the screen
+     * @param level integer that represents what level the user is on
+     */
     public synchronized void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
@@ -100,8 +107,10 @@ public class GameArena {
     /**
      * Removes the ball from the arraylist once touched
      *
-     * @param x
-     * @param y
+     * @param x float representing the x position of the touch
+     * @param y float representing the y postion of teh touch
+     * @return boolean value true or false depending on whether the user touched
+     *      the ball or not
      */
     public boolean findBall(float x, float y) {
         try {
@@ -159,7 +168,7 @@ public class GameArena {
     /**
      * redraw the ball to simulate the moving
      *
-     * @param height
+     * @param height integer that represents where the ball is on the screen
      */
     public synchronized void update(int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
@@ -177,7 +186,7 @@ public class GameArena {
     }
 
     /**
-     * generate the binary value. Notice the clever use of the Integer.toString(x, 2)
+     * generates the binary value
      *
      * @param x the integer to convert to binary
      * @return the string representation of the binary number
@@ -223,9 +232,9 @@ public class GameArena {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
                 if (isBinary) {
-                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 60, 600, paint);
                 } else {
-                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 60, 600, paint);
                 }
             } else {
                 // GameArenaActivity.stopTimer();
@@ -256,9 +265,9 @@ public class GameArena {
                     showEndGame();
                 }
             } else if (displayWindow){
-                currentBallToFind = null;
                 displayWindow = false;
                 showGameOver();
+                currentBallToFind = null;
             }
         }
 
@@ -267,7 +276,7 @@ public class GameArena {
     /**
      * Increases binary ball velocity for every nth wrong guess.
      *
-     * @return if velocity was increased
+     * @return boolean value if velocity was increased or not
      */
     public boolean increaseBallVelocity() {
         int n = 5;
@@ -287,6 +296,11 @@ public class GameArena {
         wrongGuesses++;
     }
 
+
+    /**
+     * shows level password at end of the level beaten by using array list passwords in LevelsDatabase
+     *
+     */
     public void showLevelPassword() {
         final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;
         LevelsDatabase.updateScore(mPlayerLevel, elapsedTime);
@@ -312,6 +326,11 @@ public class GameArena {
 
     }
 
+    /**
+     * shows a message at the very end of the game letting the user know they have beaten the
+     *      whole game.
+     */
+
     public void showEndGame() {
 
         activity.runOnUiThread(new Runnable() {
@@ -334,6 +353,10 @@ public class GameArena {
             }
         });
     }
+
+    /**
+     * shows that the game is over because the user lost.  asks if they would like to continue or not
+     */
 
     public void showGameOver() {
 

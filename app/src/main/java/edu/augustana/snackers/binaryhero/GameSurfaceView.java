@@ -15,6 +15,14 @@ public class
 
     private GameThread bounceThread;
 
+
+    /**
+     * constructor for GameSurfaceView class
+     * @param context Context
+     * @param gameArena GameArena
+     * @param attrs AttributeSet set of attributes
+     */
+
     public GameSurfaceView(Context context, GameArena gameArena, AttributeSet attrs) {
         super(context, attrs);
 

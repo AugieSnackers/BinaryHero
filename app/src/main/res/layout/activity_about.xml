@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/accent_material_dark"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:weightSum="1">
+    <ImageView
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/binary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/team_name"
+        android:id="@+id/aboutTextView0"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40dp"
+        android:padding="@dimen/activity_vertical_margin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/team_members"
+        android:id="@+id/aboutTextView1"
+        android:layout_gravity="center_horizontal"
+        android:textSize="35dp"/>
+
+        <TextView
+            android:paddingTop="20dp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/graphics_credit"
+            android:id="@+id/graphics"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/music_credit"
+            android:id="@+id/music"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"/>
+        <TextView
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/sound_credit"
+            android:id="@+id/sound"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:padding="@dimen/activity_vertical_margin"/>
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="100dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal|top"
+            android:backgroundTint="#000000"
+            android:text="CLOSE"
+            android:textColor="#fefdfd"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"/>
+
+    </LinearLayout>
+</ScrollView>

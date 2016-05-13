@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/scrollViewTut0"
+    android:fillViewport="false"
+    android:background="#b3afaf">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayoutTut0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTut0"
+            android:text="@string/tutorial_content"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:autoText="true"
+            android:background="#b3afaf" />
+
+        <Button
+            android:id="@+id/buttonTut"
+            android:layout_width="100dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal|top"
+            android:backgroundTint="#000000"
+            android:text="CLOSE"
+            android:textColor="#fefdfd"
+            android:textSize="15sp"
+            android:layout_below="@id/textViewTut0"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</ScrollView>
