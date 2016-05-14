@@ -323,7 +323,7 @@ public class GameArena {
                 helpBuilder.setTitle("LEVEL COMPLETE");
                 String message = "This level took you " + elapsedTime + " seconds.";
                 message += "\nThe fastest time: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds.";
-                message += "\n\n" + R.string.congratulations_message + " " + LevelsDatabase.passwords[mPlayerLevel];
+                message += "\n\n" + "Level complete! The password for this level is" + " \"" + LevelsDatabase.passwords[mPlayerLevel] + "\".";
                 message += "\n" + LevelsDatabase.passwordMeaning[mPlayerLevel];
                 helpBuilder.setMessage(message);
                 helpBuilder.setPositiveButton("GOT IT!",
