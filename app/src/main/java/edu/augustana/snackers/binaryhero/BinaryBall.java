@@ -22,7 +22,25 @@ public class BinaryBall {
     private static final double VELOCITY_LIMIT = 5;
 
 
-    public BinaryBall(int posX, int posY, int rad, String text, int decimalValue, int primaryColor, int textColor) {
+
+    /**
+     *
+     * constructor method for the BinaryBall class that sets values for variables
+     *
+     * @param  posX integer value of the x position of the ball
+     * @param  posY integer value of the y postiton of the ball
+     * @param  rad integer value of the raidus of the ball
+     * @param text string that is displayed on ball
+     * @param oppositeBaseValue integer that represents the value of the number on the ball in
+     *                          the opposite base (base 10 or 2)
+     * @param primaryColor int that represents the color the ball is
+     * @param textColor int that represents the color fo the text
+     *
+     */
+
+
+
+    public BinaryBall(int posX, int posY, int rad, String text, int oppositeBaseValue, int primaryColor, int textColor) {
         x = posX;
         y = posY;
         //devices have different resoulution
@@ -34,20 +52,29 @@ public class BinaryBall {
         Log.d("velY", " " + velY);
         Log.d("velY", " " + LevelsDatabase.SCREEN_HEIGHT);
         textBinary = text;
-        this.decimalValue = decimalValue;
+        this.decimalValue = oppositeBaseValue;
         numTimesOffScreen = 0;
         this.primaryColor = primaryColor;
         this.textColor = textColor;
     }
 
-    public void move(int topWall, int bottomWall) {
+    /**
+     * method that causes the ball to fall in the y direction. Also checks if the ball
+     *      has reached the bottom of the screen and if it has moves it to the top while adding
+     *      1 to the variable numTImesOffScreen which represents the number of times ball has been
+     *      reset to top
+     * @param topBound integer that represents the top boundry of the screen
+     * @param bottomBound integer that represents the bottom of the screen
+     */
+
+    public void move(int topBound, int bottomBound) {
         //MOVE BALL
         y += velY;
 
 
         //checks if balls reaching the bottom and what to do with it
-        if (y > bottomWall) {
-            y = topWall;
+        if (y > bottomBound) {
+            y = topBound;
             numTimesOffScreen++;
             //velY *= REVERSE;
         }
@@ -61,6 +88,17 @@ public class BinaryBall {
 
 
     }
+
+    /**
+     * draws the balls that are shown on screen.  sets color and places text inside them
+     * depending on length of text value inside ball changes the radius of the ball if needed
+     *
+     *
+     * @param canvas Canvas object that is drawn on
+     * @param text String object that represents the numbers to be placed on ball
+     * @param binaryMode boolean value that represents whether the user is in base 10 or 2
+     *
+     */
 
     public void draw(Canvas canvas, String text, boolean binaryMode) {
         //TODO MAKE THE  BALLS BETTER LOOKING
@@ -97,6 +135,10 @@ public class BinaryBall {
         return x;
     }
 
+
+    /**
+     *@returns string representation of base 10 decimal value
+     */
     public String getDecimalText() {
         if (decimalValue < 10) {
             return "0" + decimalValue;

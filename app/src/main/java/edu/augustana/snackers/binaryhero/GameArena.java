@@ -4,9 +4,15 @@ package edu.augustana.snackers.binaryhero;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+
+
+import com.com.example.nelly.binaryhero.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +43,8 @@ public class GameArena {
     private boolean isBinary;
     private long startLevelTime;
     private boolean displayWindow;
+    private int ballSpawnPoint;
+    private int ballsToClear;
 
 
 
@@ -45,6 +53,13 @@ public class GameArena {
         this.isBinary = isBinary;
         nextLevel(level);
     }
+
+    /**
+     * sets values for attributes pertaining to next level. Makes new array list of Binary Balls
+     *      and places all the balls on the screeen and makes sure they are not stacked on top of
+     *      each other or off of the screen
+     * @param level integer that represents what level the user is on
+     */
     public synchronized void nextLevel(int level) {
         Random rand;
         gameIsOver = false;
@@ -59,18 +74,20 @@ public class GameArena {
 
         allBinaryBalls = new ArrayList<BinaryBall>();
         rand = new Random();//needed to randomly place the balls
+        int distanceOffScreen = 0;
         //for loop to create the given number of balls
         for (int i = 0; i < numBalls; i++) {
             int nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-            int nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
+            int nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + distanceOffScreen) - distanceOffScreen;
 
             if (nextX < radius) {
                 nextX = nextX + radius;
             }
             //checks if the given position is already taking, avoids balls stacking on top of each other
             while (checkForOverStacking(nextX, nextY) && i > 0) {
+                distanceOffScreen += 25;
                 nextX = (rand.nextInt(LevelsDatabase.SCREEN_WIDTH)) % (LevelsDatabase.SCREEN_WIDTH - (radius));
-                nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + 500) - 500;
+                nextY = rand.nextInt(LevelsDatabase.SCREEN_HEIGHT + distanceOffScreen) - distanceOffScreen;
                 if (nextX < radius) {
                     nextX = nextX + radius;
                 }
@@ -82,6 +99,9 @@ public class GameArena {
         //shuffle them balls baby
         Collections.shuffle(allBinaryBalls);
         startLevelTime = System.currentTimeMillis();
+
+        ballSpawnPoint = -(distanceOffScreen + radius);
+        ballsToClear = allBinaryBalls.size();
     }
 
 
@@ -93,8 +113,10 @@ public class GameArena {
     /**
      * Removes the ball from the arraylist once touched
      *
-     * @param x
-     * @param y
+     * @param x float representing the x position of the touch
+     * @param y float representing the y postion of teh touch
+     * @return boolean value true or false depending on whether the user touched
+     *      the ball or not
      */
     public boolean findBall(float x, float y) {
         try {
@@ -106,6 +128,7 @@ public class GameArena {
                 if ((xDiff * xDiff + yDiff * yDiff) <= diameter * diameter) {
                     if (binaryBall.getDecimalValue() == currentBallToFind.getDecimalValue()) {
                         removeBall(allBinaryBalls.get(i));
+                        ballsToClear--;
                         return true;
                     }
                 }
@@ -151,11 +174,12 @@ public class GameArena {
     /**
      * redraw the ball to simulate the moving
      *
-     * @param height
+     * @param height integer that represents where the ball is on the screen
      */
     public synchronized void update(int height) {
         for (int i = 0; i < allBinaryBalls.size(); i++) {
-            allBinaryBalls.get(i).move(0, height);
+            int ballRadius = (int)allBinaryBalls.get(i).getRadius();
+            allBinaryBalls.get(i).move(ballSpawnPoint, height + ballRadius);
             if (allBinaryBalls.get(i).getNumTimesOffScreen() >= threshold - 1) {
                 if (allBinaryBalls.get(i).getNumTimesOffScreen() == threshold) {
                     removeBall(allBinaryBalls.get(i));
@@ -168,7 +192,7 @@ public class GameArena {
     }
 
     /**
-     * generate the binary value. Notice the clever use of the Integer.toString(x, 2)
+     * generates the binary value
      *
      * @param x the integer to convert to binary
      * @return the string representation of the binary number
@@ -194,6 +218,13 @@ public class GameArena {
         Paint paint = new Paint();
         paint.setColor(LevelsDatabase.TEXT_COLOR);
 
+
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        int density = (int)metrics.density;
+        int x = metrics.widthPixels / 2;
+        int y = metrics.heightPixels - density * 100;
+
+
         if (allBinaryBalls.size() > 0) {
 
             for (int i = 0; i < allBinaryBalls.size(); i++) {
@@ -214,9 +245,9 @@ public class GameArena {
                 currentBallToFind = allBinaryBalls.get(0);
                 canvas.drawText("" + mPlayerLevel, 10, 100, paint);
                 if (isBinary) {
-                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getDecimalValue(), x - 150, y, paint);
                 } else {
-                    canvas.drawText("FIND " + currentBallToFind.getBinary(), 100, 600, paint);
+                    canvas.drawText("FIND " + currentBallToFind.getBinary(), x - 225, y, paint);
                 }
             } else {
                 // GameArenaActivity.stopTimer();
@@ -237,13 +268,19 @@ public class GameArena {
             //showLevelPassword();
             //TODO add pop up button on options of the game
             //NEXT LEVEL
-            if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL&&displayWindow ) {
-                displayWindow = false;
-                showLevelPassword();
+            if (ballsToClear == 0) {
+                if (mPlayerLevel < LevelsDatabase.HIGHEST_LEVEL && displayWindow) {
+                    displayWindow = false;
+                    showLevelPassword();
 
-            } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL&&  displayWindow ) {
+                } else if (mPlayerLevel >= LevelsDatabase.HIGHEST_LEVEL && displayWindow) {
+                    displayWindow = false;
+                    showEndGame();
+                }
+            } else if (displayWindow){
                 displayWindow = false;
-               showEndGame();
+                showGameOver();
+                currentBallToFind = null;
             }
         }
 
@@ -252,7 +289,7 @@ public class GameArena {
     /**
      * Increases binary ball velocity for every nth wrong guess.
      *
-     * @return if velocity was increased
+     * @return boolean value if velocity was increased or not
      */
     public boolean increaseBallVelocity() {
         int n = 5;
@@ -272,15 +309,23 @@ public class GameArena {
         wrongGuesses++;
     }
 
+
+    /**
+     * shows level password at end of the level beaten by using array list passwords in LevelsDatabase
+     *
+     */
     public void showLevelPassword() {
         final long elapsedTime = (System.currentTimeMillis() - startLevelTime) / 1000;
         LevelsDatabase.updateScore(mPlayerLevel, elapsedTime);
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
-                helpBuilder.setTitle("PASSWORD");
-                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds"
-                + "\nThe high score is: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds");
+                helpBuilder.setTitle("LEVEL COMPLETE");
+                String message = "This level took you " + elapsedTime + " seconds.";
+                message += "\nThe fastest time: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds.";
+                message += "\n\n" + R.string.congratulations_message + " " + LevelsDatabase.passwords[mPlayerLevel];
+                message += "\n" + LevelsDatabase.passwordMeaning[mPlayerLevel];
+                helpBuilder.setMessage(message);
                 helpBuilder.setPositiveButton("GOT IT!",
                         new DialogInterface.OnClickListener() {
 
@@ -296,6 +341,11 @@ public class GameArena {
         });
 
     }
+
+    /**
+     * shows a message at the very end of the game letting the user know they have beaten the
+     *      whole game.
+     */
 
     public void showEndGame() {
 
@@ -319,6 +369,10 @@ public class GameArena {
             }
         });
     }
+
+    /**
+     * shows that the game is over because the user lost.  asks if they would like to continue or not
+     */
 
     public void showGameOver() {
 
