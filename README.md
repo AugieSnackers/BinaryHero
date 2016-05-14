@@ -9,7 +9,11 @@ entered a password, and if they did if that password matches any passwords in th
 game is called with the corresponding password level.  If no password is entered then a new game is started at level 0.   
 
 -Kaylee - creation of graphics, creating and implementing password system, layout design, tutorial  
+
 -Alex - creation of graphics, layout design, implementing new fonts, toolbar addition, logo work 
--Nelly - 
--Chris - 
--Scott -
+
+-Nelly - multithreading, drawing the balls onscreen, level database, level advancement, alternate game mode for base-10
+
+-Chris - music, sound effects, password facts, about page, code refactoring
+
+-Scott - hiscores, timer, code refactoring
