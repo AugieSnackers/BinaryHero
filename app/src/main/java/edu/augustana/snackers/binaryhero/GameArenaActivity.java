@@ -67,7 +67,7 @@ public class GameArenaActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
-    // user3833732
+    // Source for code which creates SoundPool based on build version: user3833732
     // http://stackoverflow.com/questions/17069955/play-sound-using-soundpool-example
 
     /**
