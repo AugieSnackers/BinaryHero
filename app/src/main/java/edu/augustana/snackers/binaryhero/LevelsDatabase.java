@@ -21,8 +21,14 @@ public class LevelsDatabase {
     public final static int SCREEN_HEIGHT = METRICS.heightPixels;
 
     //TODO: customize the text to explain the hint
-    public final static String passwordMeaning[] = {"Congrats the password for this level is"};
-    public final static String passwords[] = {"base2", "binary","bit","byte","decimal","hexadecimal","compile"};
+    public final static String passwordMeaning[] = {"Binary numbers use just two symbols - 0 and 1 - to represent numeric values.",
+    "Base-2 is, essentially, another way to say binary. Numbers written in base-2 often have a subscript \'2\' following them.",
+    "A bit is the smallest unit of data stored in a computer. Bits have values of either 0 or 1. This is where base-2 really comes in handy!",
+    "A byte is 8 bits long. A common use of bytes is to store characters, such as letters and numbers.",
+    "Decimal, also known as base-10, is the number system you would ordinarily use to count. It uses digits 0 through 9.",
+    "Hexadecimal is also known as base-16. Not only does it use the digits 0 to 9, after 9 comes the letter A, all the way to F! Who mixed letters with my numbers??",
+    "Compile: to translate written source code into machine code executable by the computer"};
+    public final static String passwords[] = {"binary", "base2","bit","byte","decimal","hexadecimal","compile"};
 
     public static long[] hiScores = {99999,99999,99999,99999,99999,99999};
 

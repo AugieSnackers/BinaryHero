@@ -20,4 +20,5 @@
     <string name="graphics_credit">Graphics: Alex Jelinek, Kaylee Nolan</string>
     <string name="music_credit">Music: Christopher Green</string>
     <string name="sound_credit">All sound effects downloaded from soundjay.com</string>
+    <string name="congratulations_message">Level complete! The password for this level is</string>
 </resources>

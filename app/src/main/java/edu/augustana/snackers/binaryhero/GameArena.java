@@ -12,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 
+import com.com.example.nelly.binaryhero.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -318,9 +320,12 @@ public class GameArena {
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(activity);
-                helpBuilder.setTitle("PASSWORD");
-                helpBuilder.setMessage(LevelsDatabase.passwordMeaning[0] + " " + LevelsDatabase.passwords[mPlayerLevel] + "\nthis level took you " + elapsedTime + " seconds"
-                + "\nThe fastest time: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds");
+                helpBuilder.setTitle("LEVEL COMPLETE");
+                String message = "This level took you " + elapsedTime + " seconds.";
+                message += "\nThe fastest time: " + LevelsDatabase.getLevelScore(mPlayerLevel) + " seconds.";
+                message += "\n\n" + R.string.congratulations_message + " " + LevelsDatabase.passwords[mPlayerLevel];
+                message += "\n" + LevelsDatabase.passwordMeaning[mPlayerLevel];
+                helpBuilder.setMessage(message);
                 helpBuilder.setPositiveButton("GOT IT!",
                         new DialogInterface.OnClickListener() {
 
